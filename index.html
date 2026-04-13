@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ajánlat Kalkulátor - Optimalizált verzió (HUF)</title>
+    <title>Árajánlat Kalkulátor - Optimalizált verzió</title>
 
-    <!-- Stílusok és scriptek -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
-        /* --- ALAP STÍLUSOK --- */
+        /* --- ZÁKLADNÍ STYLY --- */
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
         :root {
@@ -105,7 +104,7 @@
             flex-wrap: wrap;
         }
 
-        /* --- STÍLUSOK AZ ÁRAJÁNLATHOZ --- */
+        /* --- STYLY PRO CENOVOU NABÍDKU --- */
         .offer-category {
             margin-bottom: 45px;
         }
@@ -168,14 +167,28 @@
             line-height: 1.2;
         }
 
-        .table-header.header-mini { background-color: var(--color-mini); }
-        .table-header.header-basic { background-color: var(--color-basic); }
-        .table-header.header-professional { background-color: var(--color-professional); }
-        .table-header.header-premium { background-color: var(--color-premium); }
+        .table-header.header-mini {
+            background-color: var(--color-mini);
+        }
 
-        .table-header-placeholder { background-color: #f8f9fa; }
+        .table-header.header-basic {
+            background-color: var(--color-basic);
+        }
 
-        .service-name, .table-row-label {
+        .table-header.header-professional {
+            background-color: var(--color-professional);
+        }
+
+        .table-header.header-premium {
+            background-color: var(--color-premium);
+        }
+
+        .table-header-placeholder {
+            background-color: #f8f9fa;
+        }
+
+        .service-name,
+        .table-row-label {
             justify-content: flex-start;
             text-align: left;
             font-weight: 600;
@@ -190,8 +203,17 @@
             font-weight: 400;
         }
 
-        .icon-check { color: var(--primary-color); font-weight: bold; font-size: 1.4em; }
-        .icon-times { color: #aaa; font-weight: bold; font-size: 1.4em; }
+        .icon-check {
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.4em;
+        }
+
+        .icon-times {
+            color: #aaa;
+            font-weight: bold;
+            font-size: 1.4em;
+        }
 
         .table-price {
             font-weight: 700;
@@ -203,7 +225,10 @@
             align-items: center;
         }
 
-        .table-footer { font-weight: 600; background-color: #f1f3f4; }
+        .table-footer {
+            font-weight: 600;
+            background-color: #f1f3f4;
+        }
 
         .table-select {
             cursor: pointer;
@@ -217,11 +242,28 @@
             text-align: center;
         }
 
-        .table-select input { width: 1.3em; height: 1.3em; flex-shrink: 0; cursor: pointer; }
+        .table-select input {
+            width: 1.3em;
+            height: 1.3em;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
 
-        .comparison-table > div:nth-last-child(-n+5) { border-bottom: none; }
+        .comparison-table > div:nth-last-child(-n+5) {
+            border-bottom: none;
+        }
 
-        .savings-amount { color: var(--primary-color); }
+        .package-savings {
+            font-size: 0.8em;
+            color: var(--primary-color);
+            font-weight: 600;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .savings-amount {
+            color: var(--primary-color);
+        }
 
         .payment-select-container {
             display: flex;
@@ -242,9 +284,15 @@
             transition: all 0.2s ease-in-out;
         }
 
-        .payment-select:hover { border-color: var(--primary-color); }
+        .payment-select:hover {
+            border-color: var(--primary-color);
+        }
 
-        .flexible-services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
+        .flexible-services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
 
         .service-item {
             display: flex;
@@ -259,9 +307,17 @@
             transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
         }
 
-        .service-item:hover { border-color: var(--primary-color); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); }
+        .service-item:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
 
-        .service-item input[type="checkbox"] { width: 1.3em; height: 1.3em; flex-shrink: 0; cursor: pointer; }
+        .service-item input[type="checkbox"] {
+            width: 1.3em;
+            height: 1.3em;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
 
         .service-item .price-note {
             margin-left: auto;
@@ -274,11 +330,20 @@
             font-size: 0.9em;
         }
 
-        .table-row-odd { background-color: #f8f9fa; }
-        .table-row-even { background-color: #f1f3f4; }
+        .table-row-odd {
+            background-color: #f8f9fa;
+        }
 
-        /* --- REKAPITULÁCIÓ STÍLUSOK --- */
-        #summary-section { margin-top: 40px; padding-top: 25px; border-top: 2px solid var(--border-color); }
+        .table-row-even {
+            background-color: #f1f3f4;
+        }
+
+        /* --- STYLY PRO REKAPITULACI --- */
+        #summary-section {
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 2px solid var(--border-color);
+        }
 
         .summary-item {
             display: grid;
@@ -289,7 +354,9 @@
             border-bottom: 1px solid #eee;
         }
 
-        .summary-item:last-child { border-bottom: none; }
+        .summary-item:last-child {
+            border-bottom: none;
+        }
 
         .remove-summary-item {
             background: none;
@@ -303,9 +370,13 @@
             transition: color 0.2s;
         }
 
-        .remove-summary-item:hover { color: var(--danger-color); }
+        .remove-summary-item:hover {
+            color: var(--danger-color);
+        }
 
-        .summary-item-name { font-weight: 500; }
+        .summary-item-name {
+            font-weight: 500;
+        }
 
         .summary-item-name .discount-info {
             font-size: 0.8em;
@@ -315,9 +386,24 @@
             margin-top: 4px;
         }
 
-        .summary-item-controls { display: flex; align-items: center; gap: 8px; justify-self: end; }
-        .summary-item-controls label { font-size: 0.9em; }
-        .summary-item-controls input { width: 60px; padding: 5px; border: 1px solid var(--border-color); border-radius: 4px; text-align: center; }
+        .summary-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-self: end;
+        }
+
+        .summary-item-controls label {
+            font-size: 0.9em;
+        }
+
+        .summary-item-controls input {
+            width: 60px;
+            padding: 5px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            text-align: center;
+        }
 
         .summary-item-payment-type {
             font-size: 0.8em;
@@ -330,19 +416,113 @@
             white-space: nowrap;
         }
 
-        .summary-item-price { font-size: 0.9em; text-align: right; color: #5f6368; }
-        .summary-item-price .price-original { text-decoration: line-through; }
-        .summary-item-price .price-discounted { font-weight: 600; color: var(--text-color); display: block; font-size: 1.1em; }
+        .summary-item-price {
+            font-size: 0.9em;
+            text-align: right;
+            color: #5f6368;
+        }
 
-        .summary-final-totals { margin-top: 20px; padding-top: 20px; border-top: 2px solid var(--primary-color); font-size: 1.1em; }
+        .summary-item-price .price-original {
+            text-decoration: line-through;
+        }
 
-        .summary-final-totals-grid { display: grid; grid-template-columns: 1fr auto; gap: 10px 15px; font-size: 1.1em; }
-        .summary-final-totals-grid .label { text-align: left; }
-        .summary-final-totals-grid .value { text-align: right; }
-        .summary-final-totals-grid .total-price { font-size: 1.5em; font-weight: 700; color: var(--primary-color); }
-        .summary-final-totals-grid hr { grid-column: 1 / -1; border: 0; border-top: 1px solid var(--border-color); margin: 10px 0; }
+        .summary-item-price .price-discounted {
+            font-weight: 600;
+            color: var(--text-color);
+            display: block;
+            font-size: 1.1em;
+        }
 
-        /* MODÁLIS ABLAK STÍLUSOK */
+        .summary-final-totals {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid var(--primary-color);
+            font-size: 1.1em;
+        }
+
+        .summary-final-totals div {
+            margin-bottom: 8px;
+        }
+
+        #final-total-price {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        #total-discount-amount {
+            font-weight: 600;
+            color: var(--danger-color);
+        }
+
+        #total-savings-amount {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .summary-total-item {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 15px;
+            align-items: center;
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+
+        .summary-total-item strong {
+            font-size: 1.2em;
+        }
+
+        .summary-sub-total-item {
+            padding-left: 20px;
+            font-size: 0.9em;
+            color: #5f6368;
+        }
+
+        .total-label {
+            text-align: right;
+        }
+
+        .total-value {
+            text-align: left;
+        }
+
+        .summary-final-totals-grid {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 10px 15px;
+            font-size: 1.1em;
+        }
+
+        .summary-final-totals-grid .label {
+            text-align: left;
+        }
+
+        .summary-final-totals-grid .value {
+            text-align: right;
+        }
+
+        .summary-final-totals-grid .total-price {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .summary-final-totals-grid .vat-note {
+            font-weight: 400;
+            font-size: 0.8em;
+            color: #5f6368;
+            margin-left: 8px;
+        }
+
+        .summary-final-totals-grid hr {
+            grid-column: 1 / -1;
+            border: 0;
+            border-top: 1px solid var(--border-color);
+            margin: 10px 0;
+        }
+
+        /* STYLY PRO MODÁLNÍ OKNO */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -366,22 +546,310 @@
             animation: fadeIn 0.3s ease-out;
         }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-        .modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; margin-bottom: 20px; }
-        .modal-header h3 { margin: 0; font-size: 1.5em; }
-        .close-modal-btn { background: none; border: none; font-size: 2em; cursor: pointer; color: #aaa; line-height: 1; }
-        .close-modal-btn:hover { color: var(--danger-color); }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
 
-        .modal-body .form-group { margin-bottom: 15px; }
-        .modal-body label { display: block; margin-bottom: 5px; font-weight: 500; }
-        .modal-body input { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 5px; font-size: 1em; }
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.5em;
+        }
+
+        .close-modal-btn {
+            background: none;
+            border: none;
+            font-size: 2em;
+            cursor: pointer;
+            color: #aaa;
+            line-height: 1;
+        }
+
+        .close-modal-btn:hover {
+            color: var(--danger-color);
+        }
+
+        .modal-body .form-group {
+            margin-bottom: 15px;
+        }
+
+        .modal-body label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .modal-body input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 1em;
+        }
         
-        #generate-only-quote { width: 20px !important; height: 20px !important; margin: 0 !important; }
+        /* Styl pro checkbox generování */
+        #generate-only-quote {
+            width: 20px !important;
+            height: 20px !important;
+            margin: 0 !important;
+        }
 
-        .modal-footer { margin-top: 25px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: flex-end; }
+        .modal-footer {
+            margin-top: 25px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: flex-end;
+        }
 
-        /* PDF OLDAL KONTAJNERE */
+        /* --- STYLY PRO MŘÍŽKU 4 PILÍŘŮ --- */
+        .pillars-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .pillar-item p {
+            font-size: 12px;
+            line-height: 1.45;
+            color: #555;
+            margin: 0;
+            padding: 0;
+        }
+        .pillar-item p strong {
+            color: #34a853;
+            font-weight: 600;
+        }
+        .pillar-item p strong.title {
+            color: #202124;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 3px;
+            font-size: 1.1em;
+        }
+
+        /* --- STYLY PRO MINIMALISTICKOU "HADÍ" MŘÍŽKU --- */
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 6px;
+            margin-top: 15px;
+        }
+        .timeline-event {
+            padding: 5px;
+            border: 1px solid #f0f0f0;
+            border-radius: 4px;
+            background: #fdfdfd;
+        }
+        .timeline-content .year {
+            font-size: 0.9em;
+            font-weight: 700;
+            color: #202124;
+            border-bottom: 1px solid #34a853;
+            padding-bottom: 2px;
+            margin-bottom: 4px;
+        }
+        .timeline-content strong {
+            color: #34a853;
+            font-weight: 600;
+        }
+        .timeline-content ul {
+            margin-top: 4px;
+            padding-left: 10px;
+            list-style-type: disc;
+        }
+
+        .timeline-content li {
+            font-size: 9px;
+            line-height: 1.3;
+            color: #555;
+            border-bottom: none;
+            padding-bottom: 1px;
+            margin-bottom: 1px;
+            list-style-type: disc;
+        }
+
+        /* --- NOVÉ STYLY PRO STRÁNKU 2 (STATISTIKY) --- */
+        .stats-main-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #202124;
+            margin-top: 30px;
+            margin-bottom: 8px;
+            text-align: left;
+        }
+        .stats-main-subtitle {
+            font-size: 13px;
+            font-weight: 400;
+            color: #555;
+            margin-top: 0;
+            margin-bottom: 25px;
+            text-align: left;
+            line-height: 1.5;
+        }
+        .stats-section {
+            margin-bottom: 15px;
+            --stat-color: #34a853;
+        }
+        .stats-section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #202124;
+            border-bottom: 2px solid var(--stat-color);
+            padding-bottom: 6px;
+            margin-top: 0;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .stats-section h3 img {
+            height: 20px;
+            width: auto;
+            margin-left: 10px;
+        }
+        .stats-grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fdfdfd;
+            padding: 8px;
+            border: 1px solid #f0f0f0;
+            border-radius: 5px;
+            min-height: 70px;
+        }
+        .stat-circle-container {
+            position: relative;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+        }
+        .stat-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: radial-gradient(circle at center, #ffffff 75%, transparent 75%),
+                        conic-gradient(var(--stat-color) calc(var(--percent) * 1%), #f0f0f0 0);
+        }
+        .stat-circle::before {
+            display: none;
+            content: none;
+        }
+        .stat-circle-percent {
+            position: absolute;
+            font-size: 16px;
+            font-weight: 700;
+            color: #202124;
+            z-index: 2;
+        }
+        .stat-content h4 {
+            margin: 0 0 3px 0;
+            font-size: 13px;
+            color: var(--stat-color);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        .stat-content p {
+            font-size: 11px;
+            line-height: 1.3;
+            color: #555;
+            margin: 0;
+        }
+        .stat-content strong {
+            color: #202124;
+            font-weight: 600;
+        }
+
+        /* --- STYLY PRO STRÁNKU 4 (ROZSAH SLUŽEB) --- */
+        .scope-item {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        .scope-item:last-child {
+            border-bottom: none;
+        }
+        .scope-item h4 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #34a853;
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+        .scope-item p {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #555;
+            margin: 0;
+        }
+        .scope-item .scope-details {
+            font-size: 11px;
+            font-weight: 600;
+            color: #777;
+            background: #f8f9fa;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 8px;
+        }
+
+        /* --- STYLY PRO STRÁNKU 5 (KONTAKTY) --- */
+        .stats-summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px 20px;
+            margin-top: 15px;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #f0f0f0;
+        }
+        .stat-summary-item {
+            text-align: left;
+        }
+        .stat-summary-item .number {
+            font-size: 24px;
+            font-weight: 700;
+            color: #34a853;
+            line-height: 1.1;
+            margin: 0;
+        }
+        .stat-summary-item .label {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.3;
+            margin: 0;
+        }
+        .client-logos-container {
+            padding: 0;
+            background: #fff;
+            border: none;
+            text-align: center;
+        }
+
+        /* Styl pro kontejner PDF stránky */
         .pdf-page-container {
             position: relative;
             font-family: sans-serif;
@@ -395,6 +863,7 @@
             background-color: #fff;
         }
 
+        /* Styl pro patičku PDF */
         .pdf-footer {
             position: absolute;
             bottom: 40px;
@@ -408,29 +877,13 @@
             margin-top: auto;
         }
 
-        .pillars-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px; }
-        .pillar-item p { font-size: 12px; line-height: 1.45; color: #555; margin: 0; padding: 0; }
-        .pillar-item p strong { color: #34a853; font-weight: 600; }
-        .pillar-item p strong.title { color: #202124; font-weight: 700; display: block; margin-bottom: 3px; font-size: 1.1em; }
-
-        .stat-circle {
-            width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center;
-            background: radial-gradient(circle at center, #ffffff 75%, transparent 75%),
-                        conic-gradient(var(--stat-color) calc(var(--percent) * 1%), #f0f0f0 0);
-        }
-        .stat-circle-percent { position: absolute; font-size: 16px; font-weight: 700; color: #202124; z-index: 2; }
-        .stats-grid-container { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-        .stat-item { display: flex; align-items: center; gap: 10px; background: #fdfdfd; padding: 8px; border: 1px solid #f0f0f0; border-radius: 5px; min-height: 70px; }
-
     </style>
 </head>
 <body>
     <div class="app-container">
-        <!-- Szolgáltatás kiválasztása -->
         <section id="offer-section" class="card">
             <div id="offer-content">
                 <h3 class="section-title"><i class="fas fa-file-invoice-dollar"></i> Árajánlat</h3>
-                <!-- Kedvezményes csomagok -->
                 <div class="offer-category">
                     <h4 class="offer-subtitle">Kedvezményes csomagok</h4>
                     <div class="comparison-table-wrapper">
@@ -439,80 +892,67 @@
                             <div class="table-header header-mini">MINI</div>
                             <div class="table-header header-basic">BASIC</div>
                             <div class="table-header header-professional">PROFESSIONAL</div>
-                            <div class="table-header header-premium">INDIVIDUAL</div>
-                            
+                            <div class="table-header header-premium">EGYEDI</div>
                             <div class="service-name">Profil optimalizálása</div>
                             <div class="table-cell"><span class="icon-check">✓</span></div>
                             <div class="table-cell"><span class="icon-check">✓</span></div>
                             <div class="table-cell"><span class="icon-check">✓</span></div>
                             <div class="table-cell">Egyedi</div>
-
                             <div class="service-name">Cégprofil kezelése</div>
                             <div class="table-cell"><span class="icon-check">✓</span></div>
                             <div class="table-cell"><span class="icon-check">✓</span></div>
                             <div class="table-cell"><span class="icon-check">✓</span></div>
                             <div class="table-cell">Egyedi</div>
-
                             <div class="service-sub-name">Hírek / hónap</div>
                             <div class="table-cell">1 db</div>
                             <div class="table-cell">4 db</div>
                             <div class="table-cell">6 db</div>
                             <div class="table-cell">Egyedi</div>
-
                             <div class="service-sub-name">Termékportfólió / hónap</div>
                             <div class="table-cell">5 db</div>
                             <div class="table-cell">20 db</div>
                             <div class="table-cell">40 db</div>
                             <div class="table-cell">Egyedi</div>
-
                             <div class="service-name">Google Street View</div>
                             <div class="table-cell"><span class="icon-check">✓</span></div>
                             <div class="table-cell"><span class="icon-check">✓</span></div>
                             <div class="table-cell"><span class="icon-check">✓</span></div>
                             <div class="table-cell">Egyedi</div>
-
                             <div class="service-sub-name">Lépések száma</div>
                             <div class="table-cell">2 - 10</div>
                             <div class="table-cell">11 - 30</div>
                             <div class="table-cell">31 - 60</div>
                             <div class="table-cell">Egyedi</div>
-
                             <div class="service-sub-name">Klasszikus fotó</div>
                             <div class="table-cell">3 db</div>
                             <div class="table-cell">10 db</div>
                             <div class="table-cell">20 db</div>
                             <div class="table-cell">Egyedi</div>
-
                             <div class="service-name">Google Street View AIR</div>
                             <div class="table-cell"><span class="icon-times">✗</span></div>
                             <div class="table-cell">6 - 15 db</div>
                             <div class="table-cell">16 - 25 db</div>
                             <div class="table-cell">Egyedi</div>
-
-                            <div class="service-sub-name">360° fotó</div>
+                            <div class="service-sub-name">360°-os fotó</div>
                             <div class="table-cell"><span class="icon-times">✗</span></div>
                             <div class="table-cell">6 db</div>
                             <div class="table-cell">12 db</div>
                             <div class="table-cell">Egyedi</div>
-
                             <div class="service-sub-name">Videó</div>
                             <div class="table-cell"><span class="icon-times">✗</span></div>
-                            <div class="table-cell">2x 30 mp-ig</div>
-                            <div class="table-cell">6x 30 mp-ig</div>
+                            <div class="table-cell">2x max 30 mp</div>
+                            <div class="table-cell">6x max 30 mp</div>
                             <div class="table-cell">Egyedi</div>
-
-                            <div class="table-footer service-name">ÁR</div>
+                            <div class="table-footer service-name">ÁR (ÁFA nélkül)</div>
                             <div class="table-footer table-price" data-price-yearly="319000">319 000 Ft</div>
                             <div class="table-footer table-price" data-price-yearly="479000">479 000 Ft</div>
                             <div class="table-footer table-price" data-price-yearly="639000">639 000 Ft</div>
                             <div class="table-footer table-price" data-price-yearly="0">Egyedi</div>
-
                             <div class="table-footer service-name table-row-label table-row-odd">Megtakarítás</div>
-                            <div class="table-footer table-price savings-amount table-row-odd" data-savings-yearly="46000" data-savings-base="14000" data-package-id="package_mini">46 000 Ft</div>
-                            <div class="table-footer table-price savings-amount table-row-odd" data-savings-yearly="120000" data-savings-base="64000" data-package-id="package_basic">120 000 Ft</div>
-                            <div class="table-footer table-price savings-amount table-row-odd" data-savings-yearly="140000" data-savings-base="51000" data-package-id="package_professional">140 000 Ft</div>
+                            <div class="table-footer table-price savings-amount table-row-odd" data-savings-yearly="20000" data-savings-base="2000" data-package-id="package_mini">20 000 Ft</div>
+                            <div class="table-footer table-price savings-amount table-row-odd" data-savings-yearly="30000" data-savings-base="3000" data-package-id="package_basic">30 000 Ft</div>
+                            <div class="table-footer table-price savings-amount table-row-odd" data-savings-yearly="40000" data-savings-base="4000" data-package-id="package_professional">40 000 Ft</div>
                             <div class="table-footer table-price savings-amount table-row-odd">—</div>
-
                             <div class="table-footer service-name table-row-label table-row-even">Fizetési mód</div>
                             <div class="table-footer payment-select-container table-row-even">
                                 <select id="package_payment_term_select" name="package_payment_term" class="payment-select">
@@ -525,59 +965,51 @@
                             <div class="table-footer payment-select-container table-row-even"></div>
                             <div class="table-footer payment-select-container table-row-even"></div>
                             <div class="table-footer payment-select-container table-row-even"></div>
-
                             <div class="table-footer service-name"></div>
-                            <div class="table-footer"><label class="table-select"><input type="checkbox" name="package" id="package_mini" data-price="319000" data-price-yearly="319000" data-name="Csomag MINI"> Kiválasztás</label></div>
-                            <div class="table-footer"><label class="table-select"><input type="checkbox" name="package" id="package_basic" data-price="479000" data-price-yearly="479000" data-name="Csomag BASIC"> Kiválasztás</label></div>
-                            <div class="table-footer"><label class="table-select"><input type="checkbox" name="package" id="package_professional" data-price="639000" data-price-yearly="639000" data-name="Csomag PROFESSIONAL"> Kiválasztás</label></div>
-                            <div class="table-footer"><label class="table-select"><input type="checkbox" name="package" id="package_premium" data-price="0" data-price-yearly="0" data-name="Csomag INDIVIDUAL"> Kiválasztás</label></div>
+                            <div class="table-footer"><label class="table-select"><input type="checkbox" name="package" id="package_mini" data-price="319000" data-price-yearly="319000" data-name="MINI Csomag"> Kiválasztás</label></div>
+                            <div class="table-footer"><label class="table-select"><input type="checkbox" name="package" id="package_basic" data-price="479000" data-price-yearly="479000" data-name="BASIC Csomag"> Kiválasztás</label></div>
+                            <div class="table-footer"><label class="table-select"><input type="checkbox" name="package" id="package_professional" data-price="639000" data-price-yearly="639000" data-name="PROFESSIONAL Csomag"> Kiválasztás</label></div>
+                            <div class="table-footer"><label class="table-select"><input type="checkbox" name="package" id="package_premium" data-price="0" data-price-yearly="0" data-name="EGYEDI Csomag"> Kiválasztás</label></div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Egyéni szolgáltatások -->
                 <div class="offer-category">
-                    <h4 class="offer-subtitle">Egyéni szolgáltatások</h4>
+                    <h4 class="offer-subtitle">Egyedi szolgáltatások</h4>
                     <h5>Google Cégem</h5>
                     <div class="flexible-services-grid" style="margin-bottom: 40px;">
-                        <label class="service-item"><input type="checkbox" id="gmf_optimize_one" data-price="79000" data-name="Optimalizálás éves kezelés nélkül"> Optimalizálás éves kezelés nélkül <span class="price-note">79 000 Ft</span></label>
-                        <label class="service-item"><input type="checkbox" id="gmf_optimize_full" data-price="49000" data-name="Optimalizálás éves kezeléssel"> Optimalizálás éves kezeléssel <span class="price-note">49 000 Ft</span></label>
+                        <label class="service-item"><input type="checkbox" id="gmf_optimize_one" data-price="79000" data-name="Optimalizáció éves kezelés nélkül"> Optimalizáció éves kezelés nélkül <span class="price-note">79 000 Ft</span></label>
+                        <label class="service-item"><input type="checkbox" id="gmf_optimize_full" data-price="49000" data-name="Optimalizáció éves kezeléssel"> Optimalizáció éves kezeléssel <span class="price-note">49 000 Ft</span></label>
                         <label class="service-item"><input type="checkbox" id="gmf_update" data-price="32000" data-name="Cégprofil módosítása"> Cégprofil módosítása <span class="price-note">32 000 Ft</span></label>
                     </div>
 
-                    <h5>Google Cégem Kezelés</h5>
+                    <h5>Google Cégem kezelés</h5>
                     <div class="comparison-table-wrapper" style="margin-bottom: 40px;">
                         <div class="comparison-table">
                             <div class="table-header-placeholder"></div>
                             <div class="table-header header-mini">MINI</div>
                             <div class="table-header header-basic">BASIC</div>
                             <div class="table-header header-professional">PROFESSIONAL</div>
-                            <div class="table-header header-premium">PREMIUM</div>
-
+                            <div class="table-header header-premium">EGYEDI</div>
                             <div class="service-name">Hírek / hónap</div>
                             <div class="table-cell">1 db</div>
                             <div class="table-cell">4 db</div>
                             <div class="table-cell">6 db</div>
                             <div class="table-cell">egyedi</div>
-
                             <div class="service-name">Termékportfólió / hónap</div>
                             <div class="table-cell">5 db</div>
                             <div class="table-cell">20 db</div>
                             <div class="table-cell">40 db</div>
                             <div class="table-cell">egyedi</div>
-
                             <div class="table-footer service-name table-row-label table-row-odd">ÁR</div>
                             <div class="table-footer table-price table-row-odd" data-management-price-monthly="15900" data-management-price-yearly="159000">159 000 Ft</div>
                             <div class="table-footer table-price table-row-odd" data-management-price-monthly="17500" data-management-price-yearly="175000">175 000 Ft</div>
                             <div class="table-footer table-price table-row-odd" data-management-price-monthly="19100" data-management-price-yearly="191000">191 000 Ft</div>
                             <div class="table-footer table-price table-row-odd">egyedi</div>
-
                             <div class="table-footer service-name table-row-label table-row-even">Megtakarítás</div>
-                            <div class="table-footer table-price savings-amount table-row-even" data-gmf-savings-yearly="31800" data-package-id="gmf_manage_mini">31 800 Ft</div>
-                            <div class="table-footer table-price savings-amount table-row-even" data-gmf-savings-yearly="35000" data-package-id="gmf_manage_basic">35 000 Ft</div>
-                            <div class="table-footer table-price savings-amount table-row-even" data-gmf-savings-yearly="38200" data-package-id="gmf_manage_pro">38 200 Ft</div>
+                            <div class="table-footer table-price savings-amount table-row-even" data-gmf-savings-yearly="10000" data-package-id="gmf_manage_mini">10 000 Ft</div>
+                            <div class="table-footer table-price savings-amount table-row-even" data-gmf-savings-yearly="15000" data-package-id="gmf_manage_basic">15 000 Ft</div>
+                            <div class="table-footer table-price savings-amount table-row-even" data-gmf-savings-yearly="20000" data-package-id="gmf_manage_pro">20 000 Ft</div>
                             <div class="table-footer table-price savings-amount table-row-even">—</div>
-
                             <div class="table-footer service-name table-row-label table-row-odd">Fizetési mód</div>
                             <div class="table-cell payment-select-container table-row-odd">
                                 <select id="gmf_manage_payment_term_select" name="gmf_manage_payment_term" class="payment-select">
@@ -590,15 +1022,13 @@
                             <div class="table-cell payment-select-container table-row-odd"></div>
                             <div class="table-cell payment-select-container table-row-odd"></div>
                             <div class="table-cell payment-select-container table-row-odd"></div>
-
                             <div class="table-footer service-name"></div>
-                            <div class="table-footer"><label class="table-select"><input type="checkbox" name="management_package" id="gmf_manage_mini" data-price="159000" data-price-monthly="15900" data-price-yearly="159000" data-name="Cégprofil kezelése MINI"> Kiválasztás</label></div>
-                            <div class="table-footer"><label class="table-select"><input type="checkbox" name="management_package" id="gmf_manage_basic" data-price="175000" data-price-monthly="17500" data-price-yearly="175000" data-name="Cégprofil kezelése BASIC"> Kiválasztás</label></div>
-                            <div class="table-footer"><label class="table-select"><input type="checkbox" name="management_package" id="gmf_manage_pro" data-price="191000" data-price-monthly="19100" data-price-yearly="191000" data-name="Cégprofil kezelése PROFESSIONAL"> Kiválasztás</label></div>
-                            <div class="table-footer"><label class="table-select"><input type="checkbox" name="management_package" id="gmf_manage_premium" data-price="0" data-price-monthly="0" data-price-yearly="0" data-name="Cégprofil kezelése PREMIUM"> Kiválasztás</label></div>
+                            <div class="table-footer"><label class="table-select"><input type="checkbox" name="management_package" id="gmf_manage_mini" data-price="159000" data-price-monthly="15900" data-price-yearly="159000" data-name="Profil kezelése MINI"> Kiválasztás</label></div>
+                            <div class="table-footer"><label class="table-select"><input type="checkbox" name="management_package" id="gmf_manage_basic" data-price="175000" data-price-monthly="17500" data-price-yearly="175000" data-name="Profil kezelése BASIC"> Kiválasztás</label></div>
+                            <div class="table-footer"><label class="table-select"><input type="checkbox" name="management_package" id="gmf_manage_pro" data-price="191000" data-price-monthly="19100" data-price-yearly="191000" data-name="Profil kezelése PROFESSIONAL"> Kiválasztás</label></div>
+                            <div class="table-footer"><label class="table-select"><input type="checkbox" name="management_package" id="gmf_manage_premium" data-price="0" data-price-monthly="0" data-price-yearly="0" data-name="Profil kezelése PREMIUM"> Kiválasztás</label></div>
                         </div>
                     </div>
-
                     <h5>Google Street View</h5>
                     <div class="comparison-table-wrapper" style="margin-bottom: 40px;">
                         <div class="comparison-table">
@@ -606,7 +1036,18 @@
                             <div class="table-header header-mini">MINI</div>
                             <div class="table-header header-basic">BASIC</div>
                             <div class="table-header header-professional">PROFESSIONAL</div>
-                            <div class="table-header header-premium">PREMIUM</div>
+                            <div class="table-header header-premium">EGYEDI</div>
+                            <div class="service-sub-name">Lépések száma</div>
+                            <div class="table-cell">2 - 10</div>
+                            <div class="table-cell">11 - 30</div>
+                            <div class="table-cell">31 - 60</div>
+                            <div class="table-cell">egyedi</div>
+                            <div class="service-sub-name">Klasszikus fotó</div>
+                            <div class="table-cell">3 db</div>
+                            <div class="table-cell">10 db</div>
+                            <div class="table-cell">20 db</div>
+                            <div class="table-cell">egyedi</div>
+                            <div class="table-footer service-name table-row-label table-row-even">ÁR</div>
                             <div class="table-footer table-price table-row-even" data-price="159000">159 000 Ft</div>
                             <div class="table-footer table-price table-row-even" data-price="239000">239 000 Ft</div>
                             <div class="table-footer table-price table-row-even" data-price="319000">319 000 Ft</div>
@@ -618,7 +1059,6 @@
                             <div class="table-footer"><label class="table-select"><input type="checkbox" name="gsv_package" id="gsv_table-premium" data-price="0" data-name="GSV - PREMIUM"> Kiválasztás</label></div>
                         </div>
                     </div>
-
                     <h5>Google Street View AIR</h5>
                     <div class="comparison-table-wrapper" style="margin-bottom: 40px;">
                         <div class="comparison-table">
@@ -626,10 +1066,26 @@
                             <div class="table-header header-mini">MINI</div>
                             <div class="table-header header-basic">BASIC</div>
                             <div class="table-header header-professional">PROFESSIONAL</div>
-                            <div class="table-header header-premium">PREMIUM</div>
-                            <div class="table-footer table-price table-row-even" data-price="99000">99 000 Ft</div>
-                            <div class="table-footer table-price table-row-even" data-price="149000">149 000 Ft</div>
-                            <div class="table-footer table-price table-row-even" data-price="219000">219 000 Ft</div>
+                            <div class="table-header header-premium">EGYEDI</div>
+                            <div class="service-sub-name">Klasszikus fotó</div>
+                            <div class="table-cell">3 - 5 db</div>
+                            <div class="table-cell">6 - 15 db</div>
+                            <div class="table-cell">16 - 25 db</div>
+                            <div class="table-cell">egyedi</div>
+                            <div class="service-sub-name">360°-os fotó</div>
+                            <div class="table-cell">2 db</div>
+                            <div class="table-cell">6 db</div>
+                            <div class="table-cell">12 db</div>
+                            <div class="table-cell">egyedi</div>
+                            <div class="service-sub-name">Videó</div>
+                            <div class="table-cell"><span class="icon-times">✗</span></div>
+                            <div class="table-cell">2x max 30 mp</div>
+                            <div class="table-cell">6x max 30 mp</div>
+                            <div class="table-cell">Egyedi</div>
+                            <div class="table-footer service-name table-row-label table-row-even">ÁR</div>
+                            <div class="table-footer table-price table-row-even">99 000 Ft</div>
+                            <div class="table-footer table-price table-row-even">149 000 Ft</div>
+                            <div class="table-footer table-price table-row-even">219 000 Ft</div>
                             <div class="table-footer table-price table-row-even">egyedi</div>
                             <div class="table-footer service-name"></div>
                             <div class="table-footer"><label class="table-select"><input type="checkbox" name="gsva_package" id="gsva_table_mini" data-price="99000" data-name="GSV AIR - MINI"> Kiválasztás</label></div>
@@ -638,68 +1094,68 @@
                             <div class="table-footer"><label class="table-select"><input type="checkbox" name="gsva_package" id="gsva_table-premium" data-price="0" data-name="GSV AIR - PREMIUM"> Kiválasztás</label></div>
                         </div>
                     </div>
-
                     <h5>Kiegészítő szolgáltatások</h5>
                     <div class="flexible-services-grid" style="margin-bottom: 40px;">
                         <label class="service-item">
-                            <input type="checkbox" name="gsv_car_option" id="gsv_car_with_gsv" data-price="99000" data-name="GSV CAR / SISAK (GSV-vel együtt)">
-                            GSV CAR / SISAK (GSV-vel együtt)
+                            <input type="checkbox" name="gsv_car_option" id="gsv_car_with_gsv" data-price="99000" data-name="GSV AUTÓ / SISAK (GSV-vel együtt)">
+                            GSV AUTÓ / SISAK (GSV-vel együtt)
                             <span class="price-note">99 000 Ft</span>
                         </label>
                         <label class="service-item">
-                            <input type="checkbox" name="gsv_car_option" id="gsv_car_without_gsv" data-price="149000" data-name="GSV CAR / SISAK (GSV nélkül)">
-                            GSV CAR / SISAK (GSV nélkül)
+                            <input type="checkbox" name="gsv_car_option" id="gsv_car_without_gsv" data-price="149000" data-name="GSV AUTÓ / SISAK (GSV nélkül)">
+                            GSV AUTÓ / SISAK (GSV nélkül)
                             <span class="price-note">149 000 Ft</span>
                         </label>
                     </div>
-
                     <h5>NFC Termékek</h5>
                     <div class="flexible-services-grid">
-                        <label class="service-item"><input type="checkbox" id="nfc_karta" data-price="16000" data-price-tier="14000" data-name="NFC Kártya / névjegykártya"> NFC Kártya / névjegykártya <span class="price-note">16 000 Ft</span></label>
-                        <label class="service-item"><input type="checkbox" id="nfc_plaketa_hranata" data-price="16000" data-price-tier="14000" data-name="NFC Szögletes plakett"> NFC Szögletes plakett <span class="price-note">16 000 Ft</span></label>
-                        <label class="service-item"><input type="checkbox" id="nfc_plaketa_menu" data-price="16000" data-price-tier="14000" data-name="NFC Menü plakett"> NFC Menü plakett <span class="price-note">16 000 Ft</span></label>
-                        <label class="service-item"><input type="checkbox" id="nfc_stojanek_maly" data-price="16000" data-price-tier="14000" data-name="NFC Kis tartó"> NFC Kis tartó <span class="price-note">16 000 Ft</span></label>
-                        <label class="service-item"><input type="checkbox" id="nfc_plaketa_kulata" data-price="16000" data-price-tier="14000" data-name="NFC Kerek plakett"> NFC Kerek plakett <span class="price-note">16 000 Ft</span></label>
-                        <label class="service-item"><input type="checkbox" id="nfc_samolepka_bez" data-price="3200" data-name="Google matrica NFC nélkül"> Google matrica NFC nélkül <span class="price-note">3 200 Ft</span></label>
+                        <label class="service-item"><input type="checkbox" id="nfc_karta" data-price="16000" data-price-tier="14000" data-name="NFC Kártya / névjegykártya"> NFC Kártya / névjegykártya<span class="price-note">16 000 Ft</span></label>
+                        <label class="service-item"><input type="checkbox" id="nfc_stojanek" data-price="16000" data-price-tier="14000" data-name="NFC Állvány"> NFC Állvány<span class="price-note">16 000 Ft</span></label>
+                        <label class="service-item"><input type="checkbox" id="nfc_stojanek_maly" data-price="16000" data-price-tier="14000" data-name="Kis NFC állvány"> Kis NFC állvány<span class="price-note">16 000 Ft</span></label>
+                        <label class="service-item"><input type="checkbox" id="nfc_plaketa_hranata" data-price="16000" data-price-tier="14000" data-name="Szögletes NFC plakett"> Szögletes NFC plakett<span class="price-note">16 000 Ft</span></label>
+                        <label class="service-item"><input type="checkbox" id="nfc_plaketa_menu" data-price="16000" data-price-tier="14000" data-name="NFC Menü plakett"> NFC Menü plakett<span class="price-note">16 000 Ft</span></label>
+                        <label class="service-item"><input type="checkbox" id="nfc_plaketa_kulata" data-price="16000" data-price-tier="14000" data-name="Kerek NFC plakett"> Kerek NFC plakett<span class="price-note">16 000 Ft</span></label>
+                        <label class="service-item"><input type="checkbox" id="nfc_samolepka_bez" data-price="3200" data-name="Google matrica NFC nélkül"> Google matrica NFC nélkül<span class="price-note">3 200 Ft</span></label>
                     </div>
                 </div>
             </div>
-
-            <!-- Rekapituláció -->
             <div id="summary-section" class="hidden">
-                <h4 class="offer-subtitle">Ajánlat összefoglalása</h4>
+                <h4 class="offer-subtitle">Árajánlat összefoglalása</h4>
                 <div id="summary-recurring-wrapper" class="hidden">
                     <h5>Átalánydíjas fizetések</h5>
                     <div id="summary-recurring-list"></div>
                 </div>
                 <div id="summary-onetime-wrapper" class="hidden">
-                    <h5>Egyszeri kifizetések</h5>
+                    <h5>Egyszeri fizetések</h5>
                     <div id="summary-onetime-list"></div>
                 </div>
-                <h4 class="offer-subtitle" style="border-bottom: none; margin-bottom: 5px; margin-top: 40px;">Összesített összefoglaló</h4>
+                <h4 class="offer-subtitle" style="border-bottom: none; margin-bottom: 5px; margin-top: 40px;">Összesítés</h4>
                 <div class="summary-final-totals">
                     <div class="summary-final-totals-grid">
                         <span class="label">Teljes kedvezmény:</span>
                         <span class="value" id="total-discount-amount">0 Ft</span>
                         <hr>
-                        <span class="label">Átalánydíjak összesen:</span>
+                        <span class="label">Összes átalánydíjas fizetés:</span>
                         <strong class="value" id="total-recurring-price">0 Ft</strong>
                         <hr>
-                        <span class="label">Egyszeri díjak összesen:</span>
+                        <span class="label">Összes egyszeri fizetés:</span>
                         <strong class="value" id="total-onetime-price">0 Ft</strong>
                         <hr>
-                        <span class="label total-price">ÖSSZESEN (ÁFA nélkül):</span>
-                        <strong class="value total-price" id="final-total-price-display">0 Ft</strong>
+                        <span class="label total-price" style="color: #555;">ÖSSZESEN (ÁFA nélkül):</span>
+                        <strong class="value total-price" style="color: #555;" id="final-total-price-display">0 Ft</strong>
+                        <span class="label">27% ÁFA:</span>
+                        <span class="value" id="final-vat-amount">0 Ft</span>
+                        <hr>
+                        <span class="label total-price" style="font-size: 1.6em;">MINDÖSSZESEN:</span>
+                        <strong class="value total-price" style="font-size: 1.6em;" id="final-total-price-with-vat">0 Ft</strong>
                     </div>
                 </div>
             </div>
             <div class="step-footer">
-                <button type="button" id="open-modal-btn" class="btn"><i class="fas fa-file-alt"></i> Ajánlat generálása</button>
+                <button type="button" id="open-modal-btn" class="btn"><i class="fas fa-file-alt"></i> Árajánlat generálása</button>
             </div>
         </section>
     </div>
-
-    <!-- Információs modál -->
     <div id="info-modal" class="modal-overlay hidden">
         <div class="modal-content">
             <div class="modal-header">
@@ -707,11 +1163,26 @@
                 <button class="close-modal-btn">&times;</button>
             </div>
             <div class="modal-body">
-                <div class="form-group"><label for="company-name">Cégnév</label><input type="text" id="company-name" placeholder="Pl. Építő Kft."></div>
-                <div class="form-group"><label for="company-id">Adószám</label><input type="text" id="company-id" placeholder="Pl. 12345678"></div>
-                <div class="form-group"><label for="contact-person">Kapcsolattartó</label><input type="text" id="contact-person" placeholder="Pl. Kovács János"></div>
-                <div class="form-group"><label for="email">Email</label><input type="email" id="email" placeholder="Pl. janos.kovacs@email.hu"></div>
-                <div class="form-group"><label for="phone">Telefon</label><input type="tel" id="phone" placeholder="Pl. +36 20 123 4567"></div>
+                <div class="form-group">
+                    <label for="company-name">Cégnév</label>
+                    <input type="text" id="company-name" placeholder="Pl. Építőanyagok Kft.">
+                </div>
+                <div class="form-group">
+                    <label for="company-id">Adószám / Cégjegyzékszám</label>
+                    <input type="text" id="company-id" placeholder="Pl. 12345678-2-11">
+                </div>
+                <div class="form-group">
+                    <label for="contact-person">Kapcsolattartó személy</label>
+                    <input type="text" id="contact-person" placeholder="Pl. Kovács János">
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" placeholder="Pl. kovacs.janos@email.hu">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Telefonszám</label>
+                    <input type="tel" id="phone" placeholder="Pl. +36 30 123 4567">
+                </div>
                 <div class="form-group" style="margin-top: 25px; border-top: 1px solid #eee; padding-top: 15px;">
                     <label style="display: flex; align-items: center; gap: 10px; font-weight: 600;">
                         <input type="checkbox" id="generate-only-quote">
@@ -720,7 +1191,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button id="generate-offer-pdf-btn" class="btn"><i class="fas fa-file-invoice-dollar"></i> Árajánlat generálása</button>
+                <button id="generate-offer-pdf-btn" class="btn"><i class="fas fa-file-invoice-dollar"></i> PDF Generálása</button>
             </div>
         </div>
     </div>
@@ -732,18 +1203,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const summarySection = $('#summary-section');
     const infoModal = $('#info-modal');
 
+    // Data o cenách balíčků
     const packagePricesYearly = {
         'package_mini': 319000,
         'package_basic': 479000,
         'package_professional': 639000,
-        'package_premium': 0,
+        'package_premium': 0, // Individuální balíček
     };
 
+    /** * Formátuje číslo jako měnu. */
     const formatCurrency = (value, currencySymbol = 'Ft') => {
-        const formatted = new Intl.NumberFormat('hu-HU', { maximumFractionDigits: 0 }).format(value);
+        const formatted = new Intl.NumberFormat('hu-HU', {
+            maximumFractionDigits: 0
+        }).format(value);
         return currencySymbol === 'none' ? formatted : `${formatted} ${currencySymbol}`;
     };
 
+    /** * Vypočítá cenu hlavního balíčku dle zvolené frekvence platby. */
     function calculatePackagePrice(packageId, paymentTerm) {
         const yearlyPrice = packagePricesYearly[packageId] || 0;
         if (yearlyPrice === 0) return 0; 
@@ -752,278 +1228,944 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'monthly': return Math.round(baseMonthlyPrice);
             case 'quarterly': return Math.round(baseMonthlyPrice * 3);
             case 'half-yearly': return Math.round(baseMonthlyPrice * 6);
-            default: return yearlyPrice;
+            case 'yearly': default: return yearlyPrice;
         }
     }
 
+    /** * Vypočítá cenu balíčku správy Google Moje Firma dle zvolené frekvence platby. */
     function calculateGmfManagePrice(packageId, paymentTerm) {
         const checkbox = $(`#${packageId}`);
         if (!checkbox) return 0;
+
         const monthlyPrice = parseFloat(checkbox.dataset.priceMonthly) || 0;
         const yearlyPrice = parseFloat(checkbox.dataset.priceYearly) || 0;
+
         if (monthlyPrice === 0 && yearlyPrice === 0) return 0;
         switch (paymentTerm) {
             case 'monthly': return monthlyPrice;
             case 'quarterly': return monthlyPrice * 3;
             case 'half-yearly': return monthlyPrice * 6;
-            default: return yearlyPrice;
+            case 'yearly': default: return yearlyPrice;
         }
     }
 
+    /** * Přepočítá všechny celkové ceny v rekapitulaci. */
     function recalculateTotals() {
-        let totalOriginal = 0, finalTotal = 0, totalRecurringPrice = 0, totalOnetimePrice = 0, totalPackageSavings = 0;
-        const mainPaymentTerm = $('#package_payment_term_select').value;
-        const gmfManagePaymentTerm = $('#gmf_manage_payment_term_select').value;
+        let finalTotal = 0;
+        let totalOriginal = 0;
+        let totalPackageSavings = 0;
+        let totalRecurringPrice = 0;
+        let totalOnetimePrice = 0;
+        let totalYearlyPrice = 0;
+        let totalQuarterlyPrice = 0;
+        let totalHalfYearlyPrice = 0;
+        let totalMonthlyPrice = 0;
 
+        const mainPaymentTerm = document.getElementById('package_payment_term_select').value;
+        const gmfManagePaymentTerm = document.getElementById('gmf_manage_payment_term_select').value;
+
+        // 1. Přepočet cen v tabulce hlavních balíčků
         document.querySelectorAll('.table-price[data-price-yearly]').forEach(cell => {
             const yearlyPrice = parseFloat(cell.dataset.priceYearly);
-            const pkgId = cell.closest('.comparison-table').querySelector(`[data-price-yearly="${yearlyPrice}"][name="package"]`)?.id;
-            const newPrice = pkgId ? calculatePackagePrice(pkgId, mainPaymentTerm) : yearlyPrice;
-            cell.textContent = newPrice > 0 ? formatCurrency(newPrice) : (cell.dataset.priceYearly === "0" ? "Egyedi" : cell.textContent);
-        });
+            const packageId = cell.closest('.comparison-table').querySelector(`[data-price-yearly="${yearlyPrice}"][name="package"]`)?.id;
 
-        document.querySelectorAll('.savings-amount[data-package-id]').forEach(cell => {
-            if (cell.textContent !== '—') {
-                const val = mainPaymentTerm === 'yearly' ? cell.dataset.savingsYearly : cell.dataset.savingsBase;
-                cell.textContent = formatCurrency(parseFloat(val));
+            let newPrice;
+            if (packageId) {
+                newPrice = calculatePackagePrice(packageId, mainPaymentTerm);
+            } else {
+                newPrice = yearlyPrice; 
+            }
+            if (newPrice > 0) {
+                cell.textContent = formatCurrency(newPrice);
+            } else if (cell.dataset.priceYearly === "0") {
+                cell.textContent = "Egyedi";
             }
         });
 
-        document.querySelectorAll('.table-price[data-management-price-monthly]').forEach(cell => {
-            const checkbox = cell.closest('.comparison-table').querySelector(`[name="management_package"]`);
-            const pkgId = checkbox?.id;
-            const newPrice = pkgId ? calculateGmfManagePrice(pkgId, gmfManagePaymentTerm) : 0;
-            cell.textContent = newPrice > 0 ? formatCurrency(newPrice) : "egyedi";
+        // 2. Přepočet úspor v tabulce hlavních balíčků
+        document.querySelectorAll('.savings-amount[data-package-id]').forEach(cell => {
+            if (cell.textContent !== '—') {
+                if (mainPaymentTerm === 'yearly') {
+                    const finalSavings = parseFloat(cell.dataset.savingsYearly);
+                    cell.textContent = formatCurrency(finalSavings);
+                } else {
+                    const baseSavings = parseFloat(cell.dataset.savingsBase);
+                    cell.textContent = formatCurrency(baseSavings);
+                }
+            }
         });
 
+        // Přepočet úspor pro GMF
+        document.querySelectorAll('.comparison-table .savings-amount[data-gmf-savings-yearly]').forEach(cell => {
+             if (cell.textContent !== '—') {
+                if (gmfManagePaymentTerm === 'yearly') {
+                    const savings = parseFloat(cell.dataset.gmfSavingsYearly);
+                    cell.textContent = formatCurrency(savings);
+                } else {
+                    cell.textContent = '0 Ft';
+                }
+            }
+        });
+
+        // 3. Přepočet cen v tabulce správy GMF
+        document.querySelectorAll('.table-price[data-management-price-monthly]').forEach(cell => {
+            const yearlyPrice = parseFloat(cell.dataset.managementPriceYearly);
+            const checkbox = cell.closest('.comparison-table').querySelector(`[data-price-yearly="${yearlyPrice}"][name="management_package"]`);
+            const packageId = checkbox?.id;
+
+            let newPrice;
+            if (packageId) {
+                newPrice = calculateGmfManagePrice(packageId, gmfManagePaymentTerm);
+            } else {
+                const index = Array.from(cell.parentNode.children).indexOf(cell);
+                const header = cell.closest('.comparison-table').querySelector(`.table-header:nth-child(${index + 1})`);
+                if (header && header.textContent.trim().toUpperCase() === 'EGYEDI' || header && header.textContent.trim().toUpperCase() === 'PREMIUM') {
+                    newPrice = 0; 
+                } else {
+                    newPrice = yearlyPrice;
+                }
+            }
+
+            if (newPrice > 0) {
+                cell.textContent = formatCurrency(newPrice);
+            } else if (newPrice === 0) { 
+                cell.textContent = "Egyedi";
+            }
+        });
+
+        // 4. Přepočet cen v rekapitulaci
         if (!summarySection.classList.contains('hidden')) {
             document.querySelectorAll('.summary-item').forEach(itemRow => {
                 const itemId = itemRow.dataset.id;
                 const quantity = parseInt(itemRow.querySelector('.summary-quantity').value) || 1;
-                const discount = parseFloat(itemRow.querySelector('.summary-discount').value) || 0;
-                let originalUnitPice = parseFloat(itemRow.dataset.price);
-                let effectiveBasePrice = originalUnitPice;
+                const discount = parseFloat(itemRow.querySelector('.summary-discount').value) || 0; 
+                const discountInfoSpan = itemRow.querySelector('.discount-info');
 
+                let originalUnitPice = parseFloat(itemRow.dataset.price);
+                let effectiveBasePrice = originalUnitPice; 
+                
                 if (itemId.startsWith('package_')) {
                     effectiveBasePrice = calculatePackagePrice(itemId, mainPaymentTerm);
-                    originalUnitPice = effectiveBasePrice;
+                    originalUnitPice = effectiveBasePrice; 
                 } else if (itemId.includes('_manage_')) {
                     effectiveBasePrice = calculateGmfManagePrice(itemId, gmfManagePaymentTerm);
-                    originalUnitPice = effectiveBasePrice;
-                } else if (itemRow.dataset.priceTier && quantity >= 5) {
-                    effectiveBasePrice = parseFloat(itemRow.dataset.priceTier);
-                    itemRow.querySelector('.discount-info').innerHTML = `(Mennyiségi kedvezmény: ${formatCurrency(originalUnitPice, 'none')} Ft → ${formatCurrency(effectiveBasePrice, 'none')} Ft/db)`;
-                } else {
-                    itemRow.querySelector('.discount-info').innerHTML = '';
+                    originalUnitPice = effectiveBasePrice; 
+                }
+                else if (!itemId.startsWith('package_') && !itemId.includes('_manage_')) {
+                    const tierPrice = itemRow.dataset.priceTier ? parseFloat(itemRow.dataset.priceTier) : null;
+                    if (tierPrice !== null && quantity >= 5) {
+                        effectiveBasePrice = tierPrice; 
+                        discountInfoSpan.innerHTML = `(Mennyiségi kedvezmény: ${formatCurrency(originalUnitPice, 'none')} Ft → ${formatCurrency(effectiveBasePrice, 'none')} Ft/db)`;
+                    } else {
+                        discountInfoSpan.innerHTML = '';
+                    }
                 }
 
-                const priceBeforeAllDiscounts = originalUnitPice * quantity;
-                const discountedLineTotal = (effectiveBasePrice * quantity) * (1 - (discount / 100));
+                const priceBeforeManualDiscount = effectiveBasePrice * quantity; 
+                const priceBeforeAllDiscounts = originalUnitPice * quantity; 
+                const discountedLineTotal = priceBeforeManualDiscount * (1 - (discount / 100)); 
                 
-                const origSpan = itemRow.querySelector('.price-original');
+                const originalPriceSpan = itemRow.querySelector('.price-original');
                 if (Math.round(discountedLineTotal) !== Math.round(priceBeforeAllDiscounts)) {
-                    origSpan.textContent = formatCurrency(priceBeforeAllDiscounts);
-                    origSpan.style.display = 'block';
+                    originalPriceSpan.textContent = formatCurrency(priceBeforeAllDiscounts);
+                    originalPriceSpan.style.display = 'block';
                 } else {
-                    origSpan.style.display = 'none';
+                    originalPriceSpan.textContent = '';
+                    originalPriceSpan.style.display = 'none';
                 }
                 itemRow.querySelector('.price-discounted').textContent = formatCurrency(discountedLineTotal);
 
-                if (itemRow.closest('#summary-recurring-list')) totalRecurringPrice += discountedLineTotal;
-                else totalOnetimePrice += discountedLineTotal;
+                const paymentType = itemRow.querySelector('.summary-item-payment-type')?.textContent || '';
+                if (itemRow.closest('#summary-recurring-list')) {
+                    if (paymentType.includes('féléves')) {
+                        totalHalfYearlyPrice += discountedLineTotal;
+                    } else if (paymentType.includes('éves')) {
+                        totalYearlyPrice += discountedLineTotal;
+                    } else if (paymentType.includes('negyedéves')) {
+                        totalQuarterlyPrice += discountedLineTotal;
+                    } else if (paymentType.includes('havi')) {
+                        totalMonthlyPrice += discountedLineTotal;
+                    }
+                } else if (itemRow.closest('#summary-onetime-list')) {
+                    totalOnetimePrice += discountedLineTotal;
+                }
 
-                totalOriginal += priceBeforeAllDiscounts;
-                finalTotal += discountedLineTotal;
+                totalOriginal += priceBeforeAllDiscounts; 
+                finalTotal += discountedLineTotal; 
             });
 
-            const selPkg = $('input[name="package"]:checked');
-            if (selPkg && packagePricesYearly[selPkg.id] > 0) {
-                const cell = $(`.savings-amount[data-package-id="${selPkg.id}"]`);
-                totalPackageSavings += parseFloat(mainPaymentTerm === 'yearly' ? cell.dataset.savingsYearly : cell.dataset.savingsBase);
+            totalRecurringPrice = totalYearlyPrice + totalQuarterlyPrice + totalHalfYearlyPrice + totalMonthlyPrice;
+
+            const selectedMainPackage = document.querySelector('input[type="checkbox"][name="package"]:checked');
+            if (selectedMainPackage) {
+                const packageId = selectedMainPackage.id;
+                const savingsCell = document.querySelector(`.savings-amount[data-package-id="${packageId}"]`);
+                if (savingsCell && savingsCell.textContent !== '—') { 
+                    const savingsAttribute = mainPaymentTerm === 'yearly' ? 'savingsYearly' : 'savingsBase';
+                    const savingsValue = parseFloat(savingsCell.dataset[savingsAttribute]);
+                    if (!isNaN(savingsValue)) {
+                        totalPackageSavings += savingsValue;
+                    }
+                }
             }
+
+            const selectedGmfManage = document.querySelector('input[type="checkbox"][name="management_package"]:checked');
+             if (selectedGmfManage) {
+                const gmfSavingsCell = document.querySelector(`.savings-amount[data-gmf-savings-yearly][data-package-id="${selectedGmfManage.id}"]`);
+                if (gmfManagePaymentTerm === 'yearly' && gmfSavingsCell && gmfSavingsCell.textContent !== '—') {
+                    const savingsValue = parseFloat(gmfSavingsCell.dataset.gmfSavingsYearly);
+                    if (!isNaN(savingsValue)) {
+                        totalPackageSavings += savingsValue;
+                    }
+                }
+             }
+
+            const subtotal = totalRecurringPrice + totalOnetimePrice;
+            const vatAmount = subtotal * 0.27; // 27% DPH (ÁFA)
+            const finalWithVat = subtotal + vatAmount;
 
             $('#total-discount-amount').textContent = formatCurrency(totalOriginal + totalPackageSavings - finalTotal);
             $('#total-recurring-price').textContent = formatCurrency(totalRecurringPrice);
             $('#total-onetime-price').textContent = formatCurrency(totalOnetimePrice);
-            $('#final-total-price-display').textContent = formatCurrency(totalRecurringPrice + totalOnetimePrice);
+            $('#final-total-price-display').textContent = formatCurrency(subtotal);
+            $('#final-vat-amount').textContent = formatCurrency(vatAmount);
+            $('#final-total-price-with-vat').textContent = formatCurrency(finalWithVat);
         }
     }
 
+    /** * Aktualizuje sekci rekapitulace. */
     function updateSummary() {
         const allChecked = offerSection.querySelectorAll('input[type="checkbox"]:checked');
-        const recurringList = $('#summary-recurring-list'), onetimeList = $('#summary-onetime-list');
-        const preserved = new Map();
-        document.querySelectorAll('.summary-item').forEach(i => preserved.set(i.dataset.id, { q: i.querySelector('.summary-quantity').value, d: i.querySelector('.summary-discount').value }));
+        const recurringList = $('#summary-recurring-list');
+        const onetimeList = $('#summary-onetime-list');
 
-        recurringList.innerHTML = ''; onetimeList.innerHTML = '';
-        if (allChecked.length === 0) { summarySection.classList.add('hidden'); return; }
+        const preservedValues = new Map();
+        document.querySelectorAll('.summary-item').forEach(item => {
+            preservedValues.set(item.dataset.id, {
+                quantity: item.querySelector('.summary-quantity').value,
+                discount: item.querySelector('.summary-discount').value
+            });
+        });
+
+        recurringList.innerHTML = '';
+        onetimeList.innerHTML = '';
+
+        if (allChecked.length === 0) {
+            summarySection.classList.add('hidden');
+             $('#total-discount-amount').textContent = formatCurrency(0);
+             $('#total-recurring-price').textContent = formatCurrency(0);
+             $('#total-onetime-price').textContent = formatCurrency(0);
+             $('#final-total-price-display').textContent = formatCurrency(0);
+             $('#final-vat-amount').textContent = formatCurrency(0);
+             $('#final-total-price-with-vat').textContent = formatCurrency(0);
+            return;
+        }
         summarySection.classList.remove('hidden');
 
-        allChecked.forEach(cb => {
-            let item = { id: cb.id, name: cb.dataset.name, price: cb.dataset.price, tier: cb.dataset.priceTier, payType: null };
-            if (cb.name === 'package') item.payType = $('#package_payment_term_select').selectedOptions[0].text;
-            if (cb.name === 'management_package') item.payType = $('#gmf_manage_payment_term_select').selectedOptions[0].text;
+        const recurringItems = [], onetimeItems = [];
 
-            const values = preserved.get(item.id) || { q: 1, d: 0 };
-            const html = `
-                <div class="summary-item" data-id="${item.id}" data-price="${item.price}" ${item.tier ? `data-price-tier="${item.tier}"` : ''}>
-                    <button class="remove-summary-item">&times;</button>
-                    <div class="summary-item-name">${item.name}<span class="discount-info"></span></div>
-                    <div class="summary-item-controls">${item.payType ? `<span class="summary-item-payment-type">${item.payType}</span>` : ''}<label>Mennyiség:</label><input type="number" class="summary-quantity" value="${values.q}" min="1"></div>
-                    <div class="summary-item-controls"><label>Kedvezmény:</label><input type="number" class="summary-discount" value="${values.d}" min="0" max="100"> %</div>
-                    <div class="summary-item-price"><span class="price-original"></span><span class="price-discounted"></span></div>
-                </div>`;
-            if (item.payType) recurringList.innerHTML += html; else onetimeList.innerHTML += html;
+        allChecked.forEach(checkbox => {
+            let item = {
+                id: checkbox.id,
+                name: checkbox.dataset.name,
+                price: parseFloat(checkbox.dataset.price),
+                priceTier: checkbox.dataset.priceTier || null,
+                paymentType: null,
+                monthlyPrice: checkbox.dataset.priceMonthly || null,
+                yearlyPrice: checkbox.dataset.priceYearly || null,
+            };
+
+            if (checkbox.name === 'package') {
+                const mainPaymentTerm = document.getElementById('package_payment_term_select').value;
+                switch (mainPaymentTerm) {
+                    case 'yearly': item.paymentType = 'éves'; break;
+                    case 'monthly': item.paymentType = 'havi'; break;
+                    case 'quarterly': item.paymentType = 'negyedéves'; break;
+                    case 'half-yearly': item.paymentType = 'féléves'; break;
+                }
+            } else if (checkbox.name === 'management_package') {
+                const gmfManagePaymentTerm = document.getElementById('gmf_manage_payment_term_select').value;
+                switch (gmfManagePaymentTerm) {
+                    case 'yearly': item.paymentType = 'éves'; break;
+                    case 'monthly': item.paymentType = 'havi'; break;
+                    case 'quarterly': item.paymentType = 'negyedéves'; break;
+                    case 'half-yearly': item.paymentType = 'féléves'; break;
+                }
+            }
+
+            if (item.paymentType) {
+                recurringItems.push(item);
+            } else {
+                onetimeItems.push(item);
+            }
         });
+
+        const renderList = (items, container) => {
+            items.forEach(item => {
+                const values = preservedValues.get(item.id) || { quantity: 1, discount: 0 };
+                const priceTierAttr = item.priceTier ? `data-price-tier="${item.priceTier}"` : '';
+                const monthlyPriceAttr = item.monthlyPrice ? `data-price-monthly="${item.monthlyPrice}"` : '';
+                const yearlyPriceAttr = item.yearlyPrice ? `data-price-yearly="${item.yearlyPrice}"` : '';
+                const paymentTypeSpan = item.paymentType ? `<span class="summary-item-payment-type">${item.paymentType} fizetés</span>` : '';
+                
+                const quantityInputDisabled = ''; 
+                const quantityValue = values.quantity || 1; 
+
+                const itemHtml = `
+                    <div class="summary-item" data-id="${item.id}" data-price="${item.price}" ${priceTierAttr} ${monthlyPriceAttr} ${yearlyPriceAttr}>
+                        <button class="remove-summary-item" title="Elem eltávolítása">&times;</button>
+                        <div class="summary-item-name">${item.name}<span class="discount-info"></span></div>
+                        <div class="summary-item-controls">
+                            ${paymentTypeSpan}
+                            <label>Mennyiség:</label>
+                             <input type="number" class="summary-quantity" value="${quantityValue}" min="1" ${quantityInputDisabled}>
+                        </div>
+                        <div class="summary-item-controls">
+                            <label>Kedvezmény:</label>
+                            <input type="number" class="summary-discount" value="${values.discount}" min="0" max="100"> %
+                        </div>
+                        <div class="summary-item-price">
+                            <span class="price-original" style="display: none; font-size: 0.9em; text-decoration: line-through;"></span>
+                            <span class="price-discounted"></span>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += itemHtml;
+            });
+        };
+
+        renderList(recurringItems, recurringList);
+        renderList(onetimeItems, onetimeList);
+
+        $('#summary-recurring-wrapper').classList.toggle('hidden', recurringItems.length === 0);
+        $('#summary-onetime-wrapper').classList.toggle('hidden', onetimeItems.length === 0);
+
         recalculateTotals();
     }
 
     offerSection.addEventListener('change', (e) => {
-        if (e.target.matches('input[type="checkbox"]')) {
-            if (['package', 'management_package', 'gsv_package', 'gsva_package', 'gsv_car_option'].includes(e.target.name)) {
-                document.querySelectorAll(`input[name="${e.target.name}"]`).forEach(c => { if (c !== e.target) c.checked = false; });
+        const target = e.target;
+        if (target.matches('input[type="checkbox"]')) {
+            if (target.name === 'management_package' || target.name === 'package' || target.name === 'gsv_package' || target.name === 'gsva_package' || target.name === 'gsv_car_option') {
+                document.querySelectorAll(`input[name="${target.name}"]`).forEach(checkbox => {
+                    if (checkbox !== target) {
+                        checkbox.checked = false;
+                    }
+                });
             }
-            if (e.target.id === 'gmf_optimize_full' && e.target.checked) $('#gmf_optimize_one').checked = false;
-            if (e.target.id === 'gmf_optimize_one' && e.target.checked) $('#gmf_optimize_full').checked = false;
+             if (target.id === 'gmf_optimize_full' && target.checked) {
+                 const otherCheckbox = document.getElementById('gmf_optimize_one');
+                 if (otherCheckbox) otherCheckbox.checked = false;
+             }
+             if (target.id === 'gmf_optimize_one' && target.checked) {
+                 const otherCheckbox = document.getElementById('gmf_optimize_full');
+                 if (otherCheckbox) otherCheckbox.checked = false;
+             }
             updateSummary();
         }
-        if (e.target.matches('.payment-select')) updateSummary();
-    });
-
-    summarySection.addEventListener('input', recalculateTotals);
-    summarySection.addEventListener('click', (e) => {
-        if (e.target.matches('.remove-summary-item')) {
-            const cb = $(`#${e.target.closest('.summary-item').dataset.id}`);
-            if (cb) { cb.checked = false; updateSummary(); }
+        if (target.matches('.payment-select')) {
+            updateSummary();
         }
     });
 
-    // PDF GENERÁLÁS LOGIKA (MAGYAR SZÖVEGGEL)
-    const logoUrl = 'https://iili.io/KnfRVlp.png', logoGMB = 'https://iili.io/Kr0L89p.png', logoSV = 'https://iili.io/Kr0LSAN.png', logoAds = 'https://iili.io/Kr0LUNI.png';
-    const serviceDescriptions = {
-        'package_mini': 'A MINI csomag az alapvető programunk a cégprofil kezeléséhez. Tartalmazza a profil optimalizálását, havi 1 újdonságot és 5 terméket. Ezenkívül tartalmaz egy Google Street View túrát (2-10 lépés) és 3 klasszikus fotót.',
-        'package_basic': 'A BASIC csomag kibővíti az online jelenlétét. Tartalmazza a teljes optimalizálást, havi 4 újdonságot és 20 terméket. Tartalmaz egy bővített Google Street View túrát (11-30 lépés), 10 klasszikus fotót, 6 db 360°-os drónfotót (GSV AIR) és 2 rövid videót.',
-        'package_professional': 'A PROFESSIONAL csomag a komplex megoldásunk. Teljes optimalizálást és profilkezelést kap havi 6 újdonsággal és 40 termékkel. A csomag tartalmaz egy kiterjedt Google Street View túrát (31-60 lépés), 20 klasszikus fotót, 12 db 360°-os drónfotót (GSV AIR) és 6 rövid videót.',
-        'gmf_optimize_one': 'Egyszeri optimalizálás éves kezelés nélkül. Professzionálisan beállítjuk Google cégprofilját, kitöltjük a kulcsfontosságú információkat, kategóriákat, fotókat.',
-        'nfc_karta': 'NFC Kártya / névjegykártya. Modern névjegy, amely a telefonhoz érintve azonnal megnyitja cégprofilját vagy elérhetőségeit.',
-        'nfc_plaketa_hranata': 'NFC Szögletes plakett. Elegáns plakett a falra vagy ajtóra, amely interakcióra hívja fel a figyelmet a Google profiljával.',
-        'nfc_plaketa_menu': 'NFC Menü plakett. Speciális plakett éttermek számára, amely érintésre megjeleníti a digitális menüt.',
-        'nfc_stojanek_maly': 'NFC Kis tartó. Kompakt tartó az asztalra, tökéletes recepciókhoz vagy asztalokhoz.',
-        'nfc_plaketa_kulata': 'NFC Kerek plakett. Designos kerek plakett NFC chippel a Google vélemények gyűjtéséhez.',
-        'nfc_samolepka_bez': 'Google matrica NFC nélkül. Klasszikus matrica "Keressen minket a Google-ön" felirattal.'
-    };
+    summarySection.addEventListener('input', (e) => {
+        if (e.target.matches('.summary-quantity, .summary-discount')) {
+            recalculateTotals();
+        }
+    });
 
-    function createIntroPageHtml(clientInfo, logo, footer) {
-        return `<div class="pdf-page-container" id="pdf-page-content">
-            <div style="min-height:1050px;">
-                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #34a853; padding-bottom:20px; margin-bottom:30px;">
-                    <h1 style="color:#34a853; font-size:28px; margin:0;">Tisztelt Ügyfelünk!</h1>
-                    <img src="${logo}" style="max-width:120px;">
-                </div>
-                <h2 style="font-size:20px; margin-top:40px;">Megoldási javaslat a(z) ${clientInfo.companyName} részére</h2>
-                <p style="font-size:13px; color:#555;">Köszönjük érdeklődését szolgáltatásaink iránt. A VIEW-nál a Google ökoszisztéma szakértői vagyunk.</p>
-                <div class="pillars-container">
-                    <div class="pillar-item"><p><strong class="title">Google Cégem és Vélemények</strong> Teljes körű profilkezelést biztosítunk.</p></div>
-                    <div class="pillar-item"><p><strong class="title">Google Street View</strong> Professzionális 360°-os virtuális túrákat készítünk.</p></div>
-                    <div class="pillar-item"><p><strong class="title">Google Ads (PPC)</strong> Hatékony hirdetési kampányokat tervezünk.</p></div>
-                    <div class="pillar-item"><p><strong class="title">VIEW Kezelőfelület</strong> Központosított kezelést teszünk lehetővé.</p></div>
-                </div>
-            </div>
-            <div class="pdf-footer">${footer}</div>
-        </div>`;
+    summarySection.addEventListener('click', (e) => {
+        if (e.target.matches('.remove-summary-item')) {
+            const itemId = e.target.closest('.summary-item').dataset.id;
+            const checkbox = $(`#${itemId}`);
+            if (checkbox) {
+                checkbox.checked = false;
+                checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+                updateSummary();
+            }
+        }
+    });
+
+    function showCustomAlert(message) {
+         const existingAlert = document.querySelector('.custom-alert-messagebox');
+         if (existingAlert) {
+             existingAlert.remove();
+         }
+        const messageBox = document.createElement('div');
+         messageBox.className = 'custom-alert-messagebox'; 
+        messageBox.style.cssText = `position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #fff; border: 2px solid var(--danger-color); border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); padding: 20px 30px; z-index: 1001; text-align: center; max-width: 300px;`;
+        messageBox.innerHTML = `<p style="margin: 0; font-size: 1.1em; font-weight: 600;">${message}</p><button style="margin-top: 15px; padding: 8px 16px; border: none; background-color: var(--primary-color); color: white; border-radius: 5px; cursor: pointer;" onclick="this.parentNode.remove()">Rendben</button>`;
+        document.body.appendChild(messageBox);
     }
 
-    function createQuotePageHtml(client, items, totals, logo, date, valid, footer) {
-        return `<div class="pdf-page-container" id="pdf-page-content">
-            <div style="min-height:1050px;">
-                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #34a853; padding-bottom:20px; margin-bottom:30px;">
-                    <h1>ÁRAJÁNLAT</h1>
-                    <img src="${logo}" style="max-width:120px;">
+    // --- Databáze popisů a URL ---
+    const logoUrl = 'https://iili.io/KnfRVlp.png'; 
+    const logoGMB = 'https://iili.io/Kr0L89p.png'; 
+    const logoSV = 'https://iili.io/Kr0LSAN.png'; 
+    const logoAds = 'https://iili.io/Kr0LUNI.png'; 
+
+    const serviceDescriptions = {
+        'package_mini': 'A MINI csomag az alapvető programunk a cégprofil kezelésére. Tartalmazza a profil optimalizálását, havi 1 hír és 5 termék hozzáadását. Továbbá Google Street View virtuális sétát (2-10 lépés) és 3 klasszikus fotót.',
+        'package_basic': 'A BASIC csomag kiterjeszti online jelenlétét. Tartalmazza a teljes optimalizálást, havi 4 hírt és 20 terméket. Bővített Google Street View sétát (11-30 lépés), 10 klasszikus fotót, 6 db 360°-os drónfotót (GSV AIR) és 2 rövid videót.',
+        'package_professional': 'A PROFESSIONAL csomag a legátfogóbb megoldásunk. Teljes optimalizálást és profilkezelést kap havi 6 hírrel és 40 termékkel. Nagy kiterjedésű Google Street View sétát (31-60 lépés), 20 klasszikus fotót, 12 db 360°-os drónfotót (GSV AIR) és 6 rövid videót.',
+        'package_premium': 'Az EGYEDI csomag teljes mértékben az Ön egyedi igényeire van szabva. A szolgáltatások körét és a posztolási gyakoriságot személyes egyeztetés után alakítjuk ki.',
+
+        'gmf_optimize_one': 'Egyszeri optimalizáció éves kezelés nélkül. Professzionálisan beállítjuk cégprofilját a Google-ön, hozzáadjuk a kulcsfontosságú információkat és fotókat a legjobb induló pozíció érdekében.',
+        'gmf_optimize_full': 'Cégprofil teljes optimalizálása éves kezelés megrendelése esetén. Ideális kombináció valamelyik kezelési csomagunkkal, amellyel kedvezményes áron kap professzionális beállítást.',
+        'gmf_update': 'Cégprofil egyszeri módosítása. Frissíteni kell a nyitvatartást, címet, fotókat vagy a leírást? Gondoskodunk adatai gyors és szakszerű frissítéséről.',
+
+        'gmf_manage_mini': 'Profil kezelése MINI (Éves szolgáltatás). Biztosítjuk profilja rendszeres frissítését, beleértve havi 1 hírt és 5 terméket. Profilját aktívan és vonzóan tartjuk ügyfelei számára.',
+        'gmf_manage_basic': 'Profil kezelése BASIC (Éves szolgáltatás). Havi 4 hírt és 20 terméket tartalmaz. Jelentősen növeli az interakciókat a közönséggel és javítja a keresési pozíciót.',
+        'gmf_manage_pro': 'Profil kezelése PROFESSIONAL (Éves szolgáltatás). A legmagasabb szintű kezelési opció havi 6 hírrel és 40 termékkel. Ideális olyan cégek számára, amelyek uralni akarják a helyi keresést.',
+        'gmf_manage_premium': 'Profil kezelése PREMIUM (Éves szolgáltatás). Egyéni kezelési terv a céljainak megfelelő szolgáltatásokkal.',
+
+        'gsv_table_mini': 'Google Street View - MINI. Alap virtuális séta készítése 2-10 lépésben (gömbfotó) és 3 klasszikus fotó átadása. Ideális kis üzletek és kávézók számára.',
+        'gsv_table_basic': 'Google Street View - BASIC. Bővített virtuális séta (11-30 lépés) 10 klasszikus fotóval. Tökéletes éttermek, boltok és kisebb szállodák számára.',
+        'gsv_table_pro': 'Google Street View - PROFESSIONAL. Nagy virtuális séta (31-60 lépés) 20 profi fotóval kiegészítve. Kiterjedt telephelyek, szállodák, bemutatótermek és cégközpontok számára.',
+        'gsv_table-premium': 'Google Street View - PREMIUM. Teljesen egyéni virtuális séta projekt korlátlan számú ponttal és fotóval, az ügyfél egyedi igényeihez igazítva.',
+
+        'gsva_table_mini': 'Google Street View AIR - MINI. Alapcsomag légifotózáshoz és 360°-os képekhez. 3-5 klasszikus légifotót és 2 gömbpanorámás 360°-os drónfotót kap.',
+        'gsva_table_basic': 'Google Street View AIR - BASIC. Haladó csomag (6-15 légifotó, 6 db 360°-os fotó) valamint 2 rövid videó (max 30 mp), közösségi médiára vágva.',
+        'gsva_table_pro': 'Google Street View AIR - PROFESSIONAL. Átfogó légi produkció (16-25 fotó, 12 db 360°-os fotó) és 6 rövid videó (max 30 mp). Hozza ki a maximumot a helyszínből.',
+        'gsva_table-premium': 'Google Street View AIR - PREMIUM. Egyéni légi produkció az Ön igényei szerint.',
+
+        'gsv_car_with_gsv': 'GSV AUTÓ / SISAK (GSV-vel együtt). Magánterületek, parkolók vagy utak speciális rögzítése Google Street View autós vagy sisakos 360°-os kameratechnológiával. Az ár klasszikus beltéri GSV séta egyidejű megrendelése esetén érvényes.',
+        'gsv_car_without_gsv': 'GSV AUTÓ / SISAK (GSV nélkül). Magánterületek, utak vagy külterek önálló rögzítése Google Street View autós vagy sisakos 360°-os kameratechnológiával.',
+
+        'nfc_karta': 'NFC Kártya / névjegykártya. Modern névjegykártya, amely a telefonhoz érintve azonnal megnyitja cégprofilját, kapcsolatait vagy weboldalát.',
+        'nfc_stojanek': 'NFC Állvány asztalra. Ideális recepciókra, éttermekbe vagy kasszákhoz. A vásárló a telefonja érintésével azonnal értékelést hagyhat, megtekintheti az étlapot vagy csatlakozhat a Wi-Fi-hez.',
+        'nfc_stojanek_maly': 'Kis NFC állvány. Kompakt verzió szűkebb helyekre, azonos funkcionalitással.',
+        'nfc_plaketa_hranata': 'Szögletes NFC plakett. Elegáns plakett falra vagy ajtóra (pl. bejáratnál), amely interakcióra ösztönöz a Google profiljával.',
+        'nfc_plaketa_menu': 'NFC Menü plakett. Speciális plakett éttermek számára, amely a telefon érintésekor megjeleníti a digitális étlapot.',
+        'nfc_plaketa_kulata': 'Kerek NFC plakett. Dizájnos kerek plakett falra vagy asztalra NFC chippel.',
+        'nfc_samolepka_bez': 'Google matrica NFC nélkül. Klasszikus matrica "Megtalál minket a Google-ön" vagy "Értékeljen minket a Google-ön" (chip nélkül).'
+    };
+
+    function getClientInfo() {
+        return {
+            companyName: $('#company-name').value || 'Önök',
+            contactPerson: $('#contact-person').value || 'nincs megadva',
+            email: $('#email').value || 'nincs megadva',
+            phone: $('#phone').value || 'nincs megadva',
+            ico: $('#company-id').value || 'nincs megadva'
+        };
+    }
+
+    function getCheckedItemsData() {
+        const items = [];
+        document.querySelectorAll('#summary-section .summary-item').forEach(itemRow => {
+            const name = itemRow.querySelector('.summary-item-name').firstChild.textContent.trim();
+            const quantity = parseInt(itemRow.querySelector('.summary-quantity').value);
+            const paymentType = itemRow.querySelector('.summary-item-payment-type')?.textContent.replace(' fizetés', '') || 'Egyszeri';
+
+            items.push({
+                id: itemRow.dataset.id,
+                name: name,
+                quantity: quantity,
+                paymentType: paymentType
+            });
+        });
+        return items;
+    }
+
+    function createIntroPageHtml(clientInfo, logoUrl, footerText) {
+        return `
+        <div class="pdf-page-container" id="pdf-page-content">
+            <div style="min-height: 1050px;">
+                <div class="header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #34a853; padding-bottom: 20px; margin-bottom: 30px;">
+                    <div class="header-title">
+                        <h1 style="color: #34a853; font-size: 28px; margin: 0; font-weight: 700;">Tisztelt Ügyfelünk,</h1>
+                    </div>
+                    <div class="header-logo"><img src="${logoUrl}" alt="Logo" style="max-width: 120px; height: auto;"></div>
                 </div>
-                <div style="font-size:14px; margin-bottom:20px;">
-                    <p><strong>Kiállítás dátuma:</strong> ${date}</p>
-                    <p><strong>Ajánlat érvényessége:</strong> ${valid}</p>
+
+                <h2 style="font-size: 20px; font-weight: 600; color: #202124; margin-top: 40px;">
+                    Árajánlat a(z) ${clientInfo.companyName} részére
+                </h2>
+
+                <p style="font-size: 13px; line-height: 1.5; color: #555;">
+                    Köszönjük érdeklődését szolgáltatásaink iránt. A VIEW vállalatnál a Google ökoszisztéma szakértői vagyunk. Ügyfeleinknek olyan átfogó szolgáltatásokat nyújtunk, amelyek biztosítják láthatóságukat és új ügyfeleket hoznak.
+                </p>
+
+                <div class="pillars-container">
+                    <div class="pillar-item">
+                        <p><strong class="title">Google Cégem és Értékelések</strong>
+                            <strong>Biztosítjuk profilja teljes kezelését</strong> – a létrehozástól az optimalizáláson át egészen a Google értékelések megszerzésének stratégiájáig, amely bizalmat épít a vásárlókban.</p>
+                    </div>
+                    <div class="pillar-item">
+                        <p><strong class="title">Google Street View Virtuális Séták</strong>
+                            Professzionális <strong>360°-os virtuális sétákat</strong> készítünk, amelyek bevonzzák az ügyfeleket a terébe, és jelentősen javítják a megjelenését.</p>
+                    </div>
+                    <div class="pillar-item">
+                        <p><strong class="title">Google Ads (PPC) Kampányok</strong>
+                            Tervezzük, elindítjuk és optimalizáljuk <strong>a fizetett hirdetési kampányokat</strong>, amelyek hatékonyan érik el potenciális ügyfeleit.</p>
+                    </div>
+                    <div class="pillar-item">
+                        <p><strong class="title">VIEW Menedzser Felület</strong>
+                            Hozzáférést biztosítunk egy egyedi platformhoz, amely kiterjeszti a Google eszközeit és <strong>központi tömeges kezelést</strong> tesz lehetővé a fiókhálózatok számára.</p>
+                    </div>
                 </div>
-                <div style="display:flex; justify-content:space-between; margin-bottom:30px; font-size:14px;">
-                    <div><h3 style="color:#34a853;">Szállító:</h3><p><strong>STREEWVIEW CZECH s.r.o.</strong><br>Na Folimance 2155/15, Praha<br>Adószám: CZ08619671</p></div>
-                    <div><h3 style="color:#34a853;">Ügyfél:</h3><p><strong>${client.companyName}</strong><br>Adószám: ${client.ico}<br>Email: ${client.email}</p></div>
+
+                <h3 style="font-size: 16px; font-weight: 600; color: #202124; margin-top: 20px;">Kivel dolgozhat együtt?</h3>
+                <p style="font-size: 13px; line-height: 1.5; color: #555; margin-top: 5px;">
+                    Cégünk története <strong>2014-ben</strong> kezdődött a rangos <strong>Google Street View tanúsítvány</strong> megszerzésével. Ez a lépés alapozta meg vállalatunkat, és gyorsan a <strong>virtuális séták vezetői</strong> közé emelt minket Közép-Európában.
+                </p>
+                <p style="font-size: 13px; line-height: 1.5; color: #555; margin-top: 10px;">
+                    Ahogy csapatunk nőtt, természetesen bővítettük szolgáltatásainkat is. Szakterületünk lett a <strong>Google Cégem profilok kezelése</strong>, ahol mind <strong>egyszeri optimalizációt</strong>, mind <strong>teljes, rendszeres kezelést</strong> nyújtunk ügyfeleinknek.
+                </p>
+                <p style="font-size: 13px; line-height: 1.5; color: #555; margin-top: 10px;">
+                    Célunk mindig is világos volt: <strong>teljes szolgáltatáscsomagot</strong> nyújtani a Google-ön elért sikerhez. Éppen ezért logikus lépés volt a portfólió kiterjesztése a <strong>Google Ads kampányok</strong> kezelésére.
+                </p>
+
+                <h3 style="font-size: 16px; font-weight: 600; color: #202124; margin-top: 20px;">Ahogy az idő telt</h3>
+                <div class="timeline-grid">
+                    <!-- ŘÁDEK 1 -->
+                    <div class="timeline-event"><div class="timeline-content"><div class="year">2014</div><ul><li>Google Street View Trusted licenc megszerzése (Tomáš Gerber).</li></ul></div></div>
+                    <div class="timeline-event"><div class="timeline-content"><div class="year">2015</div><ul><li>Piacnyitás Szlovákiában.</li><li><strong>100 ügyfél realizálása.</strong></li></ul></div></div>
+                    <div class="timeline-event"><div class="timeline-content"><div class="year">2016</div><ul><li>Az első kereskedő.</li><li><strong>300 ügyfél realizálása.</strong></li></ul></div></div>
+                    <div class="timeline-event"><div class="timeline-content"><div class="year">2017</div><ul><li>Első utcatérképezés (Google Street View).</li><li>Sétáink elérték az <strong>50 millió megtekintést.</strong></li></ul></div></div>
+                    <div class="timeline-event"><div class="timeline-content"><div class="year">2018</div><ul><li>Első séták külföldön.</li><li>Google Cégem fiókok kezelésének kezdete.</li><li><strong>800 Ügyfél.</strong></li></ul></div></div>
+                    <div class="timeline-event"><div class="timeline-content"><div class="year">2019</div><ul><li>Sétáink elérték a <strong>100 millió megtekintést.</strong></li><li><strong>1 700 Ügyfél.</strong></li></ul></div></div>
+                    <!-- ŘÁDEK 2 -->
+                    <div class="timeline-event"><div class="timeline-content"><div class="year">2020</div><ul><li><strong>120 millió megtekintés.</strong></li><li><strong>2 000 ügyfél.</strong></li><li>GMF support részleg nyitása.</li></ul></div></div>
+                    <div class="timeline-event"><div class="timeline-content"><div class="year">2021</div><ul><li>Magyarországi és lengyelországi képviselet nyitása.</li><li><strong>2 500 ügyfél.</strong></li><li>Séták: <strong>150 millió megtekintés.</strong></li></ul></div></div>
+                    <div class="timeline-event"><div class="timeline-content"><div class="year">2022</div><ul><li>Séták: <strong>200 millió megtekintés.</strong></li><li><strong>3 000 ügyfél.</strong></li><li>Applikáció fejlesztésének kezdete.</li></ul></div></div>
+                    <div class="timeline-event"><div class="timeline-content"><div class="year">2023</div><ul><li>Ciprusi és szerb képviselet nyitása.</li><li><strong>3 600 ügyfél.</strong></li><li>Google Ads részleg indulása.</li></ul></div></div>
+                    <div class="timeline-event"><div class="timeline-content"><div class="year">2024</div><ul><li>Saját Applikáció elindítása.</li><li>Cél: <strong>4 500 ügyfél.</strong></li></ul></div></div>
+                    <div class="timeline-event"><div class="timeline-content"><div class="year">2027 (Célok)</div><ul><li>Bővülés Horvátországban, Spanyolországban, Romániában.</li><li><strong>10 000 ügyfél.</strong></li><li><strong>500 millió megtekintés</strong> a sétákon.</li></ul></div></div>
                 </div>
-                <table style="width:100%; border-collapse:collapse;">
-                    <thead style="background:#f1f3f4;"><tr><th style="text-align:left; padding:12px;">Leírás</th><th>Típus</th><th>Db</th><th style="text-align:right;">Bruttó ár</th><th>Kedv.</th><th style="text-align:right;">Nettó ár</th></tr></thead>
-                    <tbody>${items}</tbody>
-                </table>
-                <div style="margin-top:30px;"><table style="width:60%; margin-left:auto; border-collapse:collapse;"><tbody>${totals}</tbody></table></div>
             </div>
-            <div class="pdf-footer">${footer}</div>
-        </div>`;
+            <div class="pdf-footer">${footerText}</div>
+        </div>
+        `;
+    }
+
+    function createValuePropPageHtml(logoUrl, footerText) {
+        return `
+        <div class="pdf-page-container" id="pdf-page-content">
+             <div style="min-height: 1050px;">
+                <div class="header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #34a853; padding-bottom: 20px; margin-bottom: 0;">
+                    <div class="header-title">
+                        <h1 style="color: #34a853; font-size: 28px; margin: 0; font-weight: 700;">Hozzáadott érték szolgáltatások</h1>
+                    </div>
+                    <div class="header-logo"><img src="${logoUrl}" alt="Logo" style="max-width: 120px; height: auto;"></div>
+                </div>
+
+                <h2 class="stats-main-title">Fontos adatok a Google szolgáltatásairól</h2>
+                <p class="stats-main-subtitle">Valós felmérésekből származnak az alábbi százalékos adatok az általunk nyújtott szolgáltatások hasznáról.</p>
+
+                <!-- Sekce Google Moje Firma -->
+                <div class="stats-section" style="--stat-color: #4285F4;">
+                    <h3>Google Cégem <img src="${logoGMB}" alt="Google My Business Logo"></h3>
+                    <div class="stats-grid-container">
+                        <div class="stat-item"><div class="stat-circle-container"><div class="stat-circle" style="--percent: 70;"></div><div class="stat-circle-percent">70%</div></div><div class="stat-content"><h4 style="color: var(--stat-color);">Látogatottság</h4><p>A GMF-en jelenlévő vállalkozások <strong>70%-kal nagyobb eséllyel</strong> vonzanak ügyfeleket.</p></div></div>
+                        <div class="stat-item"><div class="stat-circle-container"><div class="stat-circle" style="--percent: 50;"></div><div class="stat-circle-percent">50%</div></div><div class="stat-content"><h4 style="color: var(--stat-color);">Eladások növekedése</h4><p>A vásárlók akár <strong>50%-kal valószínűbben</strong> hajlamosak a vásárlásra.</p></div></div>
+                        <div class="stat-item"><div class="stat-circle-container"><div class="stat-circle" style="--percent: 93;"></div><div class="stat-circle-percent">93%</div></div><div class="stat-content"><h4 style="color: var(--stat-color);">Térkép használata</h4><p>A fogyasztók <strong>93%-a</strong> használja a Google Térképet helyi keresésre.</p></div></div>
+                        <div class="stat-item"><div class="stat-circle-container"><div class="stat-circle" style="--percent: 64;"></div><div class="stat-circle-percent">64%</div></div><div class="stat-content"><h4 style="color: var(--stat-color);">Kapcsolat megtalálása</h4><p><strong>64%</strong> használta a GMF-t elérhetőségek megtalálására.</p></div></div>
+                    </div>
+                </div>
+
+                <!-- Sekce Google Street View -->
+                <div class="stats-section" style="--stat-color: #34a853;">
+                    <h3>Google Street View <img src="${logoSV}" alt="Street View Trusted Logo"></h3>
+                    <div class="stats-grid-container">
+                        <div class="stat-item"><div class="stat-circle-container"><div class="stat-circle" style="--percent: 67;"></div><div class="stat-circle-percent">67%</div></div><div class="stat-content"><h4 style="color: var(--stat-color);">Első benyomás</h4><p>A virtuális séták javítják a SEO-t. <strong>67%</strong> elvárja jelenlétüket.</p></div></div>
+                        <div class="stat-item"><div class="stat-circle-container"><div class="stat-circle" style="--percent: 97;"></div><div class="stat-circle-percent">97%</div></div><div class="stat-content"><h4 style="color: var(--stat-color);">Versenyelőny</h4><p><strong>97%</strong> keres online helyi cégeket. A virtuális séta előnyt jelent.</p></div></div>
+                        <div class="stat-item"><div class="stat-circle-container"><div class="stat-circle" style="--percent: 59;"></div><div class="stat-circle-percent">59%</div></div><div class="stat-content"><h4 style="color: var(--stat-color);">Látogatás vs vásárlás</h4><p>A tanulmányok szerint a vásárlók <strong>59%-a</strong> még aznap felkeresi az üzletet.</p></div></div>
+                        <div class="stat-item"><div class="stat-circle-container"><div class="stat-circle" style="--percent: 18;"></div><div class="stat-circle-percent">18%</div></div><div class="stat-content"><h4 style="color: var(--stat-color);">Helyi vásárlás</h4><p>A helyi keresések akár <strong>18%-a</strong> is aznapi vásárláshoz vezet.</p></div></div>
+                    </div>
+                </div>
+
+                <!-- Sekce Google Ads -->
+                <div class="stats-section" style="--stat-color: #f9bc15;">
+                    <h3>Google Ads <img src="${logoAds}" alt="Google Ads Logo"></h3>
+                    <div class="stats-grid-container">
+                        <div class="stat-item"><div class="stat-circle-container"><div class="stat-circle" style="--percent: 80;"></div><div class="stat-circle-percent">80%</div></div><div class="stat-content"><h4 style="color: var(--stat-color);">Használat</h4><p>A globális vállalkozások <strong>80%-a</strong> használ Google Ads-et.</p></div></div>
+                        <div class="stat-item"><div class="stat-circle-container"><div class="stat-circle" style="--percent: 43;"></div><div class="stat-circle-percent">43%</div></div><div class="stat-content"><h4 style="color: var(--stat-color);">Hatékonyság</h4><p>A hirdetések vonzzák a kattintások 65%-át, és <strong>43% vásárolt is</strong>.</p></div></div>
+                        <div class="stat-item"><div class="stat-circle-container"><div class="stat-circle" style="--percent: 62;"></div><div class="stat-circle-percent">62%</div></div><div class="stat-content"><h4 style="color: var(--stat-color);">CTR és Mobilok</h4><p>Kattintások kb. <strong>62%-a</strong> mobileszközről történik.</p></div></div>
+                        <div class="stat-item"><div class="stat-circle-container"><div class="stat-circle" style="--percent: 62;"></div><div class="stat-circle-percent">62%</div></div><div class="stat-content"><h4 style="color: var(--stat-color);">Piaci részesedés</h4><p>A Google Ads <strong>61,73%</strong>-os részesedéssel rendelkezik a PPC piacon.</p></div></div>
+                    </div>
+                </div>
+            </div>
+            <div class="pdf-footer">${footerText}</div>
+        </div>
+        `;
+    }
+
+    function createScopePageHtml(checkedItems, logoUrl, footerText) {
+        let itemsHtml = '';
+        if (checkedItems.length > 0) {
+            itemsHtml = checkedItems.map(item => {
+                const description = serviceDescriptions[item.id] || 'A szolgáltatás leírása hamarosan frissül.';
+                return `
+                <div class="scope-item">
+                    <h4>${item.name}</h4>
+                    <p>${description}</p>
+                    <span class="scope-details">Mennyiség: ${item.quantity} db | Fizetési mód: ${item.paymentType}</span>
+                </div>
+                `
+            }).join('');
+        } else {
+            itemsHtml = '<p style="font-size: 15px; line-height: 1.6; color: #555;">Nem választott ki konkrét szolgáltatást.</p>';
+        }
+
+        return `
+        <div class="pdf-page-container" id="pdf-page-content">
+             <div style="min-height: 1050px;">
+                <div class="header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #34a853; padding-bottom: 20px; margin-bottom: 30px;">
+                    <div class="header-title">
+                        <h1 style="color: #34a853; font-size: 28px; margin: 0; font-weight: 700;">Szolgáltatások részletes tartalma</h1>
+                    </div>
+                    <div class="header-logo"><img src="${logoUrl}" alt="Logo" style="max-width: 120px; height: auto;"></div>
+                </div>
+
+                <p style="font-size: 14px; line-height: 1.6; color: #555; margin-bottom: 25px;">
+                    Az alábbiakban megtalálja a kiválasztott szolgáltatások részletes leírását és előnyeit, amelyek az Ön egyedi megoldását alkotják.
+                </p>
+
+                <div class="scope-list-container">
+                    ${itemsHtml}
+                </div>
+             </div>
+            <div class="pdf-footer">${footerText}</div>
+        </div>
+        `;
+    }
+
+    function createContactPageHtml(logoUrl, footerText) {
+        const clientLogosUrl = 'https://iili.io/Kr18MPV.png'; 
+
+        return `
+        <div class="pdf-page-container" id="pdf-page-content">
+             <div style="min-height: 1050px;">
+                <div class="header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #34a853; padding-bottom: 20px; margin-bottom: 30px;">
+                    <div class="header-title">
+                        <h1 style="color: #34a853; font-size: 28px; margin: 0; font-weight: 700;">Referenciák és Kapcsolat</h1>
+                    </div>
+                    <div class="header-logo"><img src="${logoUrl}" alt="Logo" style="max-width: 120px; height: auto;"></div>
+                </div>
+
+                <h3 style="font-size: 18px; font-weight: 600; color: #202124; margin-top: 15px; margin-bottom: 15px;">Eredményeink számokban</h3>
+                <div class="stats-summary-grid">
+                    <div class="stat-summary-item"><h4 class="number">5 698+</h4><p class="label">Elégedett ügyfél</p></div>
+                    <div class="stat-summary-item"><h4 class="number">96 344+</h4><p class="label">Elkészült fotó</p></div>
+                    <div class="stat-summary-item"><h4 class="number">307 000 000+</h4><p class="label">Fotók megtekintése</p></div>
+                    <div class="stat-summary-item"><h4 class="number">328 000 000+</h4><p class="label">Reklámbannerek megjelenése</p></div>
+                </div>
+
+                <h3 style="font-size: 18px; font-weight: 600; color: #202124; margin-top: 20px;">Kiemelt ügyfeleink</h3>
+                <div class="client-logos-container">
+                    <img src="${clientLogosUrl}" alt="Referenciák" style="max-width: 100%; height: auto; display: block;">
+                </div>
+
+                <div class="closing-text" style="margin-top: 25px; margin-bottom: 30px;">
+                    <h3 style="font-size: 18px; font-weight: 600; color: #202124; margin-top: 20px;">Várjuk a közös munkát</h3>
+                    <p style="font-size: 14px; line-height: 1.6; color: #555; margin-top: 10px;">
+                        Bármilyen kérdése van az ajánlattal kapcsolatban, vagy módosításokat szeretne végrehajtani, kérjük, ne habozzon kapcsolatba lépni velünk. Készen állunk mindent maximálisan az Ön megelégedésére finomítani.
+                    </p>
+                    <p style="font-size: 14px; line-height: 1.6; color: #555; margin-top: 10px;">
+                        A VIEW vállalatnál nemcsak a fent leírt szolgáltatásokat, hanem sokéves tapasztalatunkat (know-how) is kínáljuk Önnek. Egy partner a cégprofilok, értékelések, fizetett hirdetések és virtuális séták professzionális kezeléséhez.
+                    </p>
+                    <p style="font-size: 14px; line-height: 1.6; color: #555; margin-top: 10px; font-weight: 600; color: #202124;">
+                        Bízunk benne, hogy hamarosan elkezdhetjük a közös munkát és aktívan hozzájárulhatunk cége növekedéséhez.
+                    </p>
+                </div>
+            </div>
+            <div class="pdf-footer">${footerText}</div>
+        </div>
+        `;
+    }
+
+    function createQuotePageHtml(clientInfo, itemsHtml, totalsHtml, logoUrl, issueDateStr, validUntilDateStr, footerText) {
+        return `
+        <div class="pdf-page-container" id="pdf-page-content">
+             <div style="min-height: 1050px;">
+                <div class="header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #34a853; padding-bottom: 20px; margin-bottom: 30px;">
+                    <div class="header-title"><h1>ÁRAJÁNLAT</h1></div>
+                    <div class="header-logo"><img src="${logoUrl}" alt="Logo" style="max-width: 120px; height: auto;"></div>
+                </div>
+                <div class="invoice-details" style="font-size: 14px; line-height: 1.6;">
+                    <p style="margin: 5px 0;"><strong>Dátum:</strong> ${issueDateStr}</p>
+                    <p style="margin: 5px 0;"><strong>Érvényes:</strong> ${validUntilDateStr}</p>
+                </div>
+                <div class="section-block" style="display: flex; justify-content: space-between; margin-bottom: 30px; font-size: 14px; line-height: 1.6;">
+                    <div class="dodavatel">
+                        <h3 style="color: #34a853; font-size: 16px; margin-bottom: 8px; font-weight: 600;">Szolgáltató:</h3>
+                        <p style="margin: 0; color: #555;"><strong>STREEWVIEW CZECH s.r.o.</strong><br>Na Folimance 2155/15<br>Praha - Vinohrady, 120 00<br>IČ: 08619671<br>DIČ: CZ08619671</p>
+                    </div>
+                    <div class="zakaznik">
+                        <h3 style="color: #34a853; font-size: 16px; margin-bottom: 8px; font-weight: 600;">Ügyfél:</h3>
+                        <p style="margin: 0; color: #555;"><strong>${clientInfo.companyName}</strong><br>
+                        Adószám: ${clientInfo.ico}<br>
+                        Kapcsolattartó: ${clientInfo.contactPerson}<br>
+                        E-mail: ${clientInfo.email}<br>
+                        Telefonszám: ${clientInfo.phone}</p>
+                    </div>
+                </div>
+                <table class="item-table" style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                    <thead style="background-color: #f1f3f4;">
+                        <tr>
+                            <th style="text-align: left; padding: 12px; border-bottom: 1px solid #ebf4f5; font-size: 13px; color: #3c4043; font-weight: 600;">Leírás</th>
+                            <th style="text-align: left; padding: 12px; border-bottom: 1px solid #ebf4f5; font-size: 13px; color: #3c4043; font-weight: 600;">Fizetési mód</th>
+                            <th style="text-align: center; padding: 12px; border-bottom: 1px solid #ebf4f5; font-size: 13px; color: #3c4043; font-weight: 600; width: 50px;">Menny.</th>
+                            <th style="text-align: right; padding: 12px; border-bottom: 1px solid #ebf4f5; font-size: 13px; color: #3c4043; font-weight: 600; width: 110px;">Ár kedv. nélkül</th>
+                            <th style="text-align: center; padding: 12px; border-bottom: 1px solid #ebf4f5; font-size: 13px; color: #3c4043; font-weight: 600; width: 60px;">Kedv. (%)</th>
+                            <th style="text-align: right; padding: 12px; border-bottom: 1px solid #ebf4f5; font-size: 13px; color: #3c4043; font-weight: 600; width: 110px;">Fizetendő ár</th>
+                        </tr>
+                    </thead>
+                    <tbody id="invoice-items">${itemsHtml}</tbody>
+                </table>
+                <div class="total-summary" style="margin-top: 30px; margin-bottom: 30px;">
+                    <table style="width: 65%; margin-left: auto; border-collapse: collapse;">
+                        <tbody id="pdf-totals">${totalsHtml}</tbody>
+                    </table>
+                </div>
+             </div>
+            <div class="pdf-footer">${footerText}</div>
+        </div>
+        `;
+    }
+
+    function generatePdfItemsHtml() {
+        let html = '';
+        const mainPaymentTerm = document.getElementById('package_payment_term_select').value;
+        const gmfManagePaymentTerm = document.getElementById('gmf_manage_payment_term_select').value;
+
+        document.querySelectorAll('#summary-section .summary-item').forEach(itemRow => {
+            const name = itemRow.querySelector('.summary-item-name').firstChild.textContent.trim();
+            const paymentType = itemRow.querySelector('.summary-item-payment-type')?.textContent.replace(' fizetés', '') || 'Egyszeri';
+            const quantity = parseInt(itemRow.querySelector('.summary-quantity').value);
+            const discount = parseFloat(itemRow.querySelector('.summary-discount').value); 
+            const finalPriceText = itemRow.querySelector('.price-discounted').textContent;
+             const finalPrice = finalPriceText.toLowerCase().includes('egyedi') ? 0 : parseFloat(finalPriceText.replace(/[^\d,-]/g, '').replace(',', '.'));
+
+            let originalUnitPice = parseFloat(itemRow.dataset.price);
+            const itemId = itemRow.dataset.id;
+             let priceBeforeAllDiscountsText = '';
+
+            if (itemId.startsWith('package_')) {
+                originalUnitPice = calculatePackagePrice(itemId, mainPaymentTerm);
+            } else if (itemId.includes('_manage_')) {
+                originalUnitPice = calculateGmfManagePrice(itemId, gmfManagePaymentTerm);
+            }
+
+             const priceBeforeAllDiscounts = originalUnitPice * quantity;
+
+             if (originalUnitPice === 0 && (itemId.startsWith('package_') || itemId.includes('_manage_'))) {
+                 priceBeforeAllDiscountsText = 'Egyedi';
+             } else {
+                 priceBeforeAllDiscountsText = formatCurrency(priceBeforeAllDiscounts);
+             }
+             const finalPriceDisplay = finalPrice === 0 && priceBeforeAllDiscounts === 0 ? 'Egyedi' : formatCurrency(finalPrice);
+
+
+            html += `
+                <tr style="font-size: 13px; border-bottom: 1px solid #ebf4f5;">
+                    <td class="item-name" style="padding: 12px; font-weight: 500; color: #202124;">${name}</td>
+                    <td style="padding: 12px;">${paymentType}</td>
+                     <td style="padding: 12px; text-align: center;">${quantity}</td>
+                     <td style="padding: 12px; text-align: right;">${priceBeforeAllDiscountsText}</td>
+                     <td style="padding: 12px; text-align: center;">${discount}%</td>
+                     <td style="padding: 12px; text-align: right; font-weight: 600;">${finalPriceDisplay}</td>
+                </tr>
+            `;
+        });
+        return html;
+    }
+
+    function calculateAndRenderPdfTotals(totalsBody) {
+        if (!totalsBody) return;
+
+        const totalDiscount = parseFloat($('#total-discount-amount').textContent.replace(/[^\d,-]/g, '').replace(',', '.'));
+        const recurringTotal = parseFloat($('#total-recurring-price').textContent.replace(/[^\d,-]/g, '').replace(',', '.'));
+        const onetimeTotal = parseFloat($('#total-onetime-price').textContent.replace(/[^\d,-]/g, '').replace(',', '.'));
+        const subtotal = recurringTotal + onetimeTotal;
+        const vatAmount = subtotal * 0.27; // DPH v Maďarsku 27%
+        const finalTotalWithVat = subtotal + vatAmount;
+
+        let totalsHtml = `
+            <tr style="font-size: 14px; border-bottom: 1px solid #ebf4f5;"><td class="label" style="padding: 10px; color: #d93025; text-align: right; padding-right: 20px;">Teljes kedvezmény:</td><td class="value" style="padding: 10px; font-weight: 600; text-align: right; color: #d93025;">-${formatCurrency(totalDiscount)}</td></tr>
+            <tr style="font-size: 14px; border-bottom: 1px solid #ebf4f5;"><td class="label" style="padding: 10px; color: #555; text-align: right; padding-right: 20px;">Összes átalánydíjas:</td><td class="value" style="padding: 10px; font-weight: 600; text-align: right;">${formatCurrency(recurringTotal)}</td></tr>
+            <tr style="font-size: 14px; border-bottom: 1px solid #ebf4f5;"><td class="label" style="padding: 10px; color: #555; text-align: right; padding-right: 20px;">Összes egyszeri:</td><td class="value" style="padding: 10px; font-weight: 600; text-align: right;">${formatCurrency(onetimeTotal)}</td></tr>
+            <tr style="font-size: 14px; border-bottom: 1px solid #ebf4f5; font-weight: 600; color: #555;"><td class="label" style="padding: 15px 10px 10px 10px; text-align: right; padding-right: 20px;">ÖSSZESEN (ÁFA nélkül):</td><td class="value" style="padding: 15px 10px 10px 10px; text-align: right;">${formatCurrency(subtotal)}</td></tr>
+            <tr style="font-size: 14px; border-bottom: 1px solid #ebf4f5; font-weight: 600; color: #555;"><td class="label" style="padding: 10px; text-align: right; padding-right: 20px;">27% ÁFA:</td><td class="value" style="padding: 10px; text-align: right;">${formatCurrency(vatAmount)}</td></tr>
+            <tr class="total-row" style="font-weight: 700; font-size: 16px; color: #34a853; border-top: 2px solid #34a853;"><td class="label" style="padding: 15px 10px 10px 10px; text-align: right; padding-right: 20px;">MINDÖSSZESEN (ÁFA-val):</td><td class="value" style="padding: 15px 10px 10px 10px; font-weight: 700; text-align: right;">${formatCurrency(finalTotalWithVat)}</td></tr>
+        `;
+        totalsBody.innerHTML = totalsHtml;
     }
 
     async function generateAndDownloadPdf() {
-        const createBtn = $('#generate-offer-pdf-btn');
-        createBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generálás...';
+        const createBtn = $(`#generate-offer-pdf-btn`);
+        const originalButtonText = createBtn.innerHTML;
+        createBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generálás...'; 
         createBtn.disabled = true;
 
         const { jsPDF } = window.jspdf;
-        const pdf = new jsPDF({ orientation: 'p', unit: 'mm', format: 'a4' });
-        const client = getClientInfo();
-        const issueDate = new Date().toLocaleDateString('hu-HU');
-        const validDate = new Date(); validDate.setDate(validDate.getDate() + 7);
-        const validDateStr = validDate.toLocaleDateString('hu-HU');
+        const pdf = new jsPDF({
+            orientation: 'p',
+            unit: 'mm',
+            format: 'a4'
+        });
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+
+        const clientInfo = getClientInfo();
+        const checkedItems = getCheckedItemsData();
+        const issueDate = new Date();
+        const validUntilDate = new Date();
+        validUntilDate.setDate(issueDate.getDate() + 7);
+        const issueDateStr = issueDate.toLocaleDateString('hu-HU');
+        const validUntilDateStr = validUntilDate.toLocaleDateString('hu-HU');
         const onlyQuote = $('#generate-only-quote').checked;
 
         const pdfContainer = document.createElement('div');
-        pdfContainer.style.position = 'absolute'; pdfContainer.style.left = '-9999px'; pdfContainer.style.width = '950px';
+        pdfContainer.style.position = 'absolute';
+        pdfContainer.style.left = '-9999px';
+        pdfContainer.style.width = '950px'; 
         document.body.appendChild(pdfContainer);
 
-        const renderPage = async (html) => {
-            pdfContainer.innerHTML = `<div style="font-family:sans-serif; background:#fff; width:100%; overflow:hidden;">${html}</div>`;
-            const el = pdfContainer.querySelector('#pdf-page-content');
-            el.style.minHeight = '1123px';
-            await new Promise(r => setTimeout(r, 50));
-            const canvas = await html2canvas(el, { scale: 2.0, useCORS: true, width: el.offsetWidth, height: el.scrollHeight });
-            if (pdf.internal.getNumberOfPages() > 0) pdf.addPage();
-            pdf.addImage(canvas.toDataURL('image/jpeg', 0.9), 'JPEG', 0, 0, 210, (canvas.height * 210) / canvas.width);
+         const renderWrapperStyles = `
+             font-family: sans-serif;
+             color: #3c4043;
+             background-color: #ffffff;
+             width: 100%; 
+             overflow: hidden;
+         `;
+
+        const renderPage = async (htmlContent, pageNumber, totalPages) => {
+            createBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Generálás... (Oldal ${pageNumber}/${totalPages})`;
+
+            pdfContainer.innerHTML = `<div style="${renderWrapperStyles}">${htmlContent}</div>`;
+            const contentElement = pdfContainer.querySelector('#pdf-page-content'); 
+            if (!contentElement) {
+                console.error("Hiba: A #pdf-page-content elem nem található az oldalon", pageNumber);
+                return;
+            }
+             const originalOverflow = contentElement.style.overflow;
+             contentElement.style.overflow = 'visible';
+             contentElement.style.minHeight = '1123px'; 
+
+             await new Promise(resolve => setTimeout(resolve, 50)); 
+
+             const scrollHeight = contentElement.scrollHeight;
+             contentElement.style.height = `${scrollHeight}px`;
+
+            const canvas = await html2canvas(contentElement, {
+                scale: 2.0,
+                useCORS: true,
+                allowTaint: true,
+                width: contentElement.offsetWidth, 
+                height: scrollHeight, 
+                windowHeight: scrollHeight 
+            });
+
+             contentElement.style.height = ''; 
+             contentElement.style.overflow = originalOverflow;
+             contentElement.style.minHeight = ''; 
+
+            const imgData = canvas.toDataURL('image/jpeg', 0.9);
+            const canvasWidth = canvas.width;
+            const canvasHeight = canvas.height;
+
+            const imgWidthMM = pdfWidth; 
+            const imgHeightMM = (canvasHeight * imgWidthMM) / canvasWidth; 
+
+            let heightLeft = imgHeightMM;
+            let position = 0;
+            const startPageCount = pdf.internal.getNumberOfPages();
+
+             if (pdf.internal.getNumberOfPages() > 0) {
+                 pdf.addPage();
+             }
+
+            pdf.addImage(imgData, 'JPEG', 0, position, imgWidthMM, imgHeightMM);
+            heightLeft -= pdfHeight;
+
+            while (heightLeft > pdfHeight * 0.05) { 
+                position = heightLeft - imgHeightMM; 
+                pdf.addPage();
+                createBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Generálás... (Túlcsordulás oldal ${pageNumber}...)`;
+                pdf.addImage(imgData, 'JPEG', 0, position, imgWidthMM, imgHeightMM);
+                heightLeft -= pdfHeight;
+            }
+            return pdf.internal.getNumberOfPages() - startPageCount;
         };
 
         try {
-            let itemsHtml = '';
-            document.querySelectorAll('#summary-section .summary-item').forEach(row => {
-                const name = row.querySelector('.summary-item-name').firstChild.textContent;
-                const type = row.querySelector('.summary-item-payment-type')?.textContent || 'Egyszeri';
-                const q = row.querySelector('.summary-quantity').value;
-                const d = row.querySelector('.summary-discount').value;
-                const price = row.querySelector('.price-discounted').textContent;
-                itemsHtml += `<tr><td style="padding:12px;">${name}</td><td>${type}</td><td style="text-align:center;">${q}</td><td style="text-align:right;">-</td><td style="text-align:center;">${d}%</td><td style="text-align:right;">${price}</td></tr>`;
-            });
+            const itemsHtml = generatePdfItemsHtml();
+            const totalsHtml = (() => {
+                 const totalsContainer = document.createElement('tbody');
+                 calculateAndRenderPdfTotals(totalsContainer);
+                 return totalsContainer.innerHTML;
+             })();
 
-            const subtotal = parseFloat($('#final-total-price-display').textContent.replace(/[^\d]/g, ''));
-            const vat = Math.round(subtotal * 0.27);
-            const totalsHtml = `
-                <tr><td style="text-align:right; padding:10px;">ÖSSZESEN (ÁFA nélkül):</td><td style="text-align:right;">${formatCurrency(subtotal)}</td></tr>
-                <tr><td style="text-align:right; padding:10px;">ÁFA (27%):</td><td style="text-align:right;">${formatCurrency(vat)}</td></tr>
-                <tr style="font-weight:700; color:#34a853; border-top:2px solid #34a853;"><td style="text-align:right; padding:10px;">ÖSSZESEN (ÁFÁ-val):</td><td style="text-align:right;">${formatCurrency(subtotal + vat)}</td></tr>`;
+            let pagesHtml;
+            const totalLogicalPages = onlyQuote ? 1 : 5;
 
             if (onlyQuote) {
-                await renderPage(createQuotePageHtml(client, itemsHtml, totalsHtml, logoUrl, issueDate, validDateStr, 'Árajánlat'));
+                pagesHtml = [
+                    createQuotePageHtml(clientInfo, itemsHtml, totalsHtml, logoUrl, issueDateStr, validUntilDateStr, `Árajánlat (1/${totalLogicalPages})`)
+                ];
             } else {
-                await renderPage(createIntroPageHtml(client, logoUrl, '1. Oldal'));
-                await renderPage(createQuotePageHtml(client, itemsHtml, totalsHtml, logoUrl, issueDate, validDateStr, '3. Oldal'));
+                pagesHtml = [
+                    createIntroPageHtml(clientInfo, logoUrl, '1. oldal'),
+                    createValuePropPageHtml(logoUrl, '2. oldal'),
+                    createQuotePageHtml(clientInfo, itemsHtml, totalsHtml, logoUrl, issueDateStr, validUntilDateStr, '3. oldal'),
+                    createScopePageHtml(checkedItems, logoUrl, '4. oldal'),
+                    createContactPageHtml(logoUrl, '5. oldal')
+                ];
             }
 
-            if (pdf.internal.getNumberOfPages() > 1) pdf.deletePage(1);
-            pdf.save(`Ajanlat - ${client.companyName}.pdf`);
+             let physicalPagesTotal = 0;
+             for (let i = 0; i < pagesHtml.length; i++) {
+                 const logicalPageNum = i + 1;
+                 const pagesAdded = await renderPage(pagesHtml[i], logicalPageNum, totalLogicalPages);
+                 physicalPagesTotal += pagesAdded;
+             }
+
+             if (pdf.internal.getNumberOfPages() > 1) {
+                 pdf.deletePage(1);
+             }
+
             createBtn.innerHTML = '<i class="fas fa-check"></i> Kész';
-        } catch (err) { console.error(err); } 
-        finally { document.body.removeChild(pdfContainer); setTimeout(() => { createBtn.innerHTML = 'Ajánlat generálása'; createBtn.disabled = false; }, 2000); }
+            const companyName = clientInfo.companyName === 'Önök' ? 'Nincs_megadva' : clientInfo.companyName;
+            const fileName = `Arajanlat_${companyName}.pdf`;
+            pdf.save(fileName);
+
+        } catch (error) {
+            console.error('Hiba a PDF generálása során:', error);
+            showCustomAlert('Hiba történt a PDF generálása közben. Kérjük, próbálja újra.');
+        } finally {
+            if (document.body.contains(pdfContainer)) { 
+                 document.body.removeChild(pdfContainer); 
+            }
+            setTimeout(() => {
+                 createBtn.innerHTML = originalButtonText;
+                 createBtn.disabled = false;
+            }, 2000); 
+        }
     }
 
-    function getClientInfo() { return { companyName: $('#company-name').value || 'Tisztelt Partnerünk', ico: $('#company-id').value || 'nincs megadva', email: $('#email').value || 'nincs megadva' }; }
+    $('#open-modal-btn').addEventListener('click', () => {
+         if (summarySection.classList.contains('hidden') || offerSection.querySelectorAll('input[type="checkbox"]:checked').length === 0) {
+             showCustomAlert('Kérjük, először válasszon ki legalább egy szolgáltatást.');
+             return;
+         }
+        infoModal.classList.remove('hidden');
+    });
 
-    $('#open-modal-btn').addEventListener('click', () => { if (summarySection.classList.contains('hidden')) return; infoModal.classList.remove('hidden'); });
     $('.close-modal-btn').addEventListener('click', () => infoModal.classList.add('hidden'));
-    $('#generate-offer-pdf-btn').addEventListener('click', generateAndDownloadPdf);
+    infoModal.addEventListener('click', (e) => {
+        if (e.target === infoModal) {
+            infoModal.classList.add('hidden');
+        }
+    });
 
-    recalculateTotals();
+    $('#generate-offer-pdf-btn').addEventListener('click', () => generateAndDownloadPdf());
+
+    document.getElementById('package_payment_term_select').value = 'yearly';
+    document.getElementById('gmf_manage_payment_term_select').value = 'yearly';
+    recalculateTotals(); 
 });
 </script>
 </body>
