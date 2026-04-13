@@ -619,6 +619,26 @@
                         </div>
                     </div>
 
+                    <h5>Google Street View AIR</h5>
+                    <div class="comparison-table-wrapper" style="margin-bottom: 40px;">
+                        <div class="comparison-table">
+                            <div class="table-header-placeholder"></div>
+                            <div class="table-header header-mini">MINI</div>
+                            <div class="table-header header-basic">BASIC</div>
+                            <div class="table-header header-professional">PROFESSIONAL</div>
+                            <div class="table-header header-premium">PREMIUM</div>
+                            <div class="table-footer table-price table-row-even" data-price="99000">99 000 Ft</div>
+                            <div class="table-footer table-price table-row-even" data-price="149000">149 000 Ft</div>
+                            <div class="table-footer table-price table-row-even" data-price="219000">219 000 Ft</div>
+                            <div class="table-footer table-price table-row-even">egyedi</div>
+                            <div class="table-footer service-name"></div>
+                            <div class="table-footer"><label class="table-select"><input type="checkbox" name="gsva_package" id="gsva_table_mini" data-price="99000" data-name="GSV AIR - MINI"> Kiválasztás</label></div>
+                            <div class="table-footer"><label class="table-select"><input type="checkbox" name="gsva_package" id="gsva_table_basic" data-price="149000" data-name="GSV AIR - BASIC"> Kiválasztás</label></div>
+                            <div class="table-footer"><label class="table-select"><input type="checkbox" name="gsva_package" id="gsva_table_pro" data-price="219000" data-name="GSV AIR - PROFESSIONAL"> Kiválasztás</label></div>
+                            <div class="table-footer"><label class="table-select"><input type="checkbox" name="gsva_package" id="gsva_table-premium" data-price="0" data-name="GSV AIR - PREMIUM"> Kiválasztás</label></div>
+                        </div>
+                    </div>
+
                     <h5>Kiegészítő szolgáltatások</h5>
                     <div class="flexible-services-grid" style="margin-bottom: 40px;">
                         <label class="service-item">
@@ -636,7 +656,10 @@
                     <h5>NFC Termékek</h5>
                     <div class="flexible-services-grid">
                         <label class="service-item"><input type="checkbox" id="nfc_karta" data-price="16000" data-price-tier="14000" data-name="NFC Kártya / névjegykártya"> NFC Kártya / névjegykártya <span class="price-note">16 000 Ft</span></label>
-                        <label class="service-item"><input type="checkbox" id="nfc_stojanek" data-price="16000" data-price-tier="14000" data-name="NFC Tartó"> NFC Tartó <span class="price-note">16 000 Ft</span></label>
+                        <label class="service-item"><input type="checkbox" id="nfc_plaketa_hranata" data-price="16000" data-price-tier="14000" data-name="NFC Szögletes plakett"> NFC Szögletes plakett <span class="price-note">16 000 Ft</span></label>
+                        <label class="service-item"><input type="checkbox" id="nfc_plaketa_menu" data-price="16000" data-price-tier="14000" data-name="NFC Menü plakett"> NFC Menü plakett <span class="price-note">16 000 Ft</span></label>
+                        <label class="service-item"><input type="checkbox" id="nfc_stojanek_maly" data-price="16000" data-price-tier="14000" data-name="NFC Kis tartó"> NFC Kis tartó <span class="price-note">16 000 Ft</span></label>
+                        <label class="service-item"><input type="checkbox" id="nfc_plaketa_kulata" data-price="16000" data-price-tier="14000" data-name="NFC Kerek plakett"> NFC Kerek plakett <span class="price-note">16 000 Ft</span></label>
                         <label class="service-item"><input type="checkbox" id="nfc_samolepka_bez" data-price="3200" data-name="Google matrica NFC nélkül"> Google matrica NFC nélkül <span class="price-note">3 200 Ft</span></label>
                     </div>
                 </div>
@@ -857,7 +880,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     offerSection.addEventListener('change', (e) => {
         if (e.target.matches('input[type="checkbox"]')) {
-            if (['package', 'management_package', 'gsv_package', 'gsv_car_option'].includes(e.target.name)) {
+            if (['package', 'management_package', 'gsv_package', 'gsva_package', 'gsv_car_option'].includes(e.target.name)) {
                 document.querySelectorAll(`input[name="${e.target.name}"]`).forEach(c => { if (c !== e.target) c.checked = false; });
             }
             if (e.target.id === 'gmf_optimize_full' && e.target.checked) $('#gmf_optimize_one').checked = false;
@@ -882,7 +905,12 @@ document.addEventListener('DOMContentLoaded', () => {
         'package_basic': 'A BASIC csomag kibővíti az online jelenlétét. Tartalmazza a teljes optimalizálást, havi 4 újdonságot és 20 terméket. Tartalmaz egy bővített Google Street View túrát (11-30 lépés), 10 klasszikus fotót, 6 db 360°-os drónfotót (GSV AIR) és 2 rövid videót.',
         'package_professional': 'A PROFESSIONAL csomag a komplex megoldásunk. Teljes optimalizálást és profilkezelést kap havi 6 újdonsággal és 40 termékkel. A csomag tartalmaz egy kiterjedt Google Street View túrát (31-60 lépés), 20 klasszikus fotót, 12 db 360°-os drónfotót (GSV AIR) és 6 rövid videót.',
         'gmf_optimize_one': 'Egyszeri optimalizálás éves kezelés nélkül. Professzionálisan beállítjuk Google cégprofilját, kitöltjük a kulcsfontosságú információkat, kategóriákat, fotókat.',
-        'nfc_karta': 'NFC Kártya / névjegykártya. Modern névjegy, amely a telefonhoz érintve azonnal megnyitja cégprofilját vagy elérhetőségeit.'
+        'nfc_karta': 'NFC Kártya / névjegykártya. Modern névjegy, amely a telefonhoz érintve azonnal megnyitja cégprofilját vagy elérhetőségeit.',
+        'nfc_plaketa_hranata': 'NFC Szögletes plakett. Elegáns plakett a falra vagy ajtóra, amely interakcióra hívja fel a figyelmet a Google profiljával.',
+        'nfc_plaketa_menu': 'NFC Menü plakett. Speciális plakett éttermek számára, amely érintésre megjeleníti a digitális menüt.',
+        'nfc_stojanek_maly': 'NFC Kis tartó. Kompakt tartó az asztalra, tökéletes recepciókhoz vagy asztalokhoz.',
+        'nfc_plaketa_kulata': 'NFC Kerek plakett. Designos kerek plakett NFC chippel a Google vélemények gyűjtéséhez.',
+        'nfc_samolepka_bez': 'Google matrica NFC nélkül. Klasszikus matrica "Keressen minket a Google-ön" felirattal.'
     };
 
     function createIntroPageHtml(clientInfo, logo, footer) {
@@ -986,7 +1014,7 @@ document.addEventListener('DOMContentLoaded', () => {
             pdf.save(`Ajanlat - ${client.companyName}.pdf`);
             createBtn.innerHTML = '<i class="fas fa-check"></i> Kész';
         } catch (err) { console.error(err); } 
-        finally { document.body.removeChild(pdfContainer); setTimeout(() => { createBtn.innerHTML = 'Árajánlat generálása'; createBtn.disabled = false; }, 2000); }
+        finally { document.body.removeChild(pdfContainer); setTimeout(() => { createBtn.innerHTML = 'Ajánlat generálása'; createBtn.disabled = false; }, 2000); }
     }
 
     function getClientInfo() { return { companyName: $('#company-name').value || 'Tisztelt Partnerünk', ico: $('#company-id').value || 'nincs megadva', email: $('#email').value || 'nincs megadva' }; }
